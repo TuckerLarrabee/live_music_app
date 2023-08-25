@@ -1,0 +1,49 @@
+#nowPlayingContainer {
+    display: flex;
+    flex-direction: column;
+    /* height: 8vh; */
+    background-color: #d4cbbf;
+    /* padding-top: 5px; */
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    box-shadow: 0 30px 40px rgba(0,0,0,.1)
+}
+
+.audioContainer {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    /* gap: 10px; */
+    font-family: 'Segoe UI', 'monospace';
+    font-size: 16px;
+    color: #333;
+}
+
+.audioInfo {
+  display: flex;
+    flex-direction: column;
+    width: 350px;
+    /* padding-left: 55px; */
+}
+
+audio {
+    width: 600px;
+}
+
+audio::-webkit-media-controls-enclosure {
+  background-color: #d4cbbf;
+}
+
+audio::-webkit-media-controls-panel {
+  padding: 0px;
+}
+
+.artistName {
+  text-align: left;
+}
+
+.concertDetails {
+    display: flex;
+    justify-content: space-between;
+  }

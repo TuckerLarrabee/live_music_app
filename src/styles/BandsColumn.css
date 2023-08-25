@@ -1,0 +1,10 @@
+li {
+  list-style: none;
+}
+
+ul {
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  font-size: 16px;
+}

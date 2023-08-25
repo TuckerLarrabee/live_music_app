@@ -1,0 +1,27 @@
+#specificShowListItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 3px;
+}
+
+#dateLocationDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    line-height: 1.35;
+}
+
+#dateLocationDiv a {
+    color: black;
+    font-weight: 450;
+}
+
+#venue, #cityState, #numberRecordingDiv {
+    font-size: 0.8rem;
+    color: rgb(151 151 151)
+}
+
+#numberRecordingDiv {
+    align-self: start;
+}

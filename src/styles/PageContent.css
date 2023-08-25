@@ -1,0 +1,8 @@
+content {
+    height: 85vh;
+  }
+  
+  #dataContainer {
+    height: 85vh;
+    display: flex;
+  }

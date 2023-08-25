@@ -1,0 +1,16 @@
+#specificYearListItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 3px;
+}
+
+#specificYearData {
+    text-align: right;
+}
+
+
+#numberOfShows, #numberOfRecordings {
+    font-size: 0.8rem;
+    color: rgb(151 151 151)
+}
