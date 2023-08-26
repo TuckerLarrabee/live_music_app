@@ -46,7 +46,6 @@ const PageContent = () => {
   }, [state.sheetData]);
 
   useEffect(() => {
-    console.log(state.yearShowRecordingCounts)
     if (state.yearShowRecordingCounts.length > 1 && state.showsColumnData.length) {
       setState((prevState) => ({
         ...prevState,

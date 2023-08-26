@@ -1,17 +1,21 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { countShows, countUniqueShowsByYear } from "../utils.js";
 import "../styles/ShowsColumn.css";
 
 const ShowsColumn = ({ showsColumnData, specificArtistRecordings }) => {
 let showArr = []
+let showColumnListItemObjArr = []
 
-  useEffect(() => {
-    showsColumnData.forEach((item) => {
-      showArr.push(item.Date);
-    });
-    let countVar = countShows(showArr)
-    console.log("🚀 ~ file: ShowsColumn.jsx:13 ~ useEffect ~ countVar:", countVar)
+
+
+const [state, setState] = useState({
+  showsData: [],
+})
+
+useEffect(() => {
+  console.log(showsColumnData)
   }, [showsColumnData]);
+
 
   return (
     <aside id="showContainer">
@@ -23,13 +27,13 @@ let showArr = []
                 <div id="specificShowListItem">
                   <div id="dateLocationDiv">
                     <a onClick={(event) => console.log(event.target)}>
-                      {name.Date}
+                      {name.date}
                     </a>
-                    <p id="venue">{name.Venue}</p>
-                    <p id="cityState">{name.City + ', ' + name.State}</p>
+                    <p id="venue">{name.venue}</p>
+                    <p id="cityState">{name.city + ', ' + name.state}</p>
                   </div>
                   <div id="numberRecordingDiv">
-                      1 recording
+                      {name.recordingCount > 1 ? name.recordingCount + ' recordings' : name.recordingCount + ' recording'}
                   </div>
                 </div>
               </li>

@@ -69,9 +69,10 @@ const BandsColumn = ({
 
     if (yearCountSet.size === 1) {
       setYearShowRecordingCounts(yearDataArr);
-      setShowsColumnData(specificArtistArray);
+      // setShowsColumnData(specificArtistArray);
       setSpecificArtistRecordingsArray(specificArtistArray);
     } else {
+      // setShowsColumnData([]);
       setSpecificArtistRecordingsArray(specificArtistArray);
       setYearShowRecordingCounts(yearDataArr);
     }

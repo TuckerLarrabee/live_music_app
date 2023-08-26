@@ -1,4 +1,5 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { countShows, countUniqueShowsByYear } from "../utils.js";
 import "../styles/YearsColumn.css";
 
 const YearsColumn = ({
@@ -7,10 +8,55 @@ const YearsColumn = ({
   yearShowRecordingCounts,
 }) => {
   useEffect(() => {
-    yearShowRecordingCounts.forEach((item) => {
-      console.log(item);
-    });
-  }, [yearShowRecordingCounts]);
+    console.log(
+      "🚀 ~ file: YearsColumn.jsx:10 ~ yearShowRecordingCounts:",
+      yearShowRecordingCounts
+    );
+    if (yearShowRecordingCounts.length < 2) {
+      console.log(specificArtistRecordings);
+      let specificShowDateArr = [];
+      specificArtistRecordings.forEach((showdate) => {
+        specificShowDateArr.push(showdate.Date);
+      });
+      let specificShowCount = countShows(specificShowDateArr);
+      console.log(
+        "🚀 ~ file: YearsColumn.jsx:22 ~ useEffect ~ specificShowCount:",
+        specificShowCount
+      );
+      const uniqueShowListArr = [];
+      const dateSet = new Set();
+
+      for (let i = 0; i < specificArtistRecordings.length; i++) {
+        console.log("test")
+        dateSet.add(specificArtistRecordings[i].Date)
+        if (i === specificArtistRecordings.length-1) {
+          const uniqueShowArr = Array.from(dateSet);
+          uniqueShowArr.forEach((newShowObj) => {
+            uniqueShowListArr.push({
+              date: newShowObj,
+              venue: specificArtistRecordings[i].Venue,
+              city: specificArtistRecordings[i].City,
+              state: specificArtistRecordings[i].State,
+            });
+          });
+        }
+        if (uniqueShowListArr.length) {
+          uniqueShowListArr.forEach((show) => {
+            specificArtistRecordings.forEach((showData) => {
+              if (show.date === showData.Date) {
+                show.venue = showData.Venue;
+                show.city = showData.City;
+                show.state = showData.State;
+                show.recordingCount = specificShowCount[show.date];
+              }
+            });
+          });
+        }
+      }
+      setShowsColumnData(uniqueShowListArr);
+
+    }
+  }, [specificArtistRecordings]);
 
   const getSpecificShows = (event) => {
     let specificShowsForYearArr = [];
@@ -20,8 +66,47 @@ const YearsColumn = ({
         specificShowsForYearArr.push(yearData);
       }
     });
+    let specificShowDateArr = [];
 
-    setShowsColumnData(specificShowsForYearArr);
+    specificShowsForYearArr.forEach((date) => {
+      specificShowDateArr.push(date.Date);
+    });
+    let specificShowCount = countShows(specificShowDateArr);
+
+    const uniqueShowListArr = [];
+    const dateSet = new Set();
+    for (let i = 0; i < specificShowsForYearArr.length; i++) {
+      dateSet.add(specificShowsForYearArr[i].Date);
+      if (i === specificShowsForYearArr.length - 1) {
+        const uniqueShowArr = Array.from(dateSet);
+        uniqueShowArr.forEach((newShowObj) => {
+          uniqueShowListArr.push({
+            date: newShowObj,
+            venue: specificShowsForYearArr[i].Venue,
+            city: specificShowsForYearArr[i].City,
+            state: specificShowsForYearArr[i].State,
+          });
+        });
+      }
+      console.log(
+        "🚀 ~ file: YearsColumn.jsx:36 ~ getSpecificShows ~ specificShowsForYearArr:",
+        specificShowsForYearArr
+      );
+      if (uniqueShowListArr.length) {
+        uniqueShowListArr.forEach((show) => {
+          specificShowsForYearArr.forEach((showData) => {
+            if (show.date === showData.Date) {
+              show.venue = showData.Venue;
+              show.city = showData.City;
+              show.state = showData.State;
+              show.recordingCount = specificShowCount[show.date];
+            }
+          });
+        });
+      }
+    }
+
+    setShowsColumnData(uniqueShowListArr);
   };
 
   return (
