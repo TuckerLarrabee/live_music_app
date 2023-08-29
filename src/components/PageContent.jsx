@@ -16,6 +16,7 @@ const PageContent = () => {
     showsColumnData: [],
     recordingDetailsColumnData: [],
     yearShowRecordingCounts: [],
+    nowPlayingBannerData: [],
   });
 
   useEffect(() => {
@@ -87,12 +88,19 @@ const PageContent = () => {
     }));
   };
 
+  const setNowPlayingBannerData = (selectedRecording) => {
+    setState((prevState) => ({
+      ...prevState,
+      nowPlayingBannerData: selectedRecording,
+    }));
+  };
+
   return (
     <>
-      <NowPlaying 
-      recordingDetailsColumnData={state.recordingDetailsColumnData}>
-
-      </NowPlaying>
+      <NowPlaying
+        recordingDetailsColumnData={state.recordingDetailsColumnData}
+        nowPlayingBannerData={state.nowPlayingBannerData}
+      ></NowPlaying>
       <section id="content">
         <div id="dataContainer">
           <BandsColumn
@@ -119,6 +127,7 @@ const PageContent = () => {
             specificArtistRecordings={state.specificArtistRecordingArray}
             showsColumnData={state.showsColumnData}
             recordingDetailsColumnData={state.recordingDetailsColumnData}
+            setNowPlayingBannerData={setNowPlayingBannerData}
           ></RecordingDetailsColumn>
         </div>
       </section>

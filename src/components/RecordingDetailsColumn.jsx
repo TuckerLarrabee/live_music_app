@@ -5,15 +5,18 @@ const RecordingDetailsColumn = ({
   specificArtistRecordings,
   showsColumnData,
   recordingDetailsColumnData,
+  setNowPlayingBannerData
 }) => {
   useEffect(() => {}, [showsColumnData]);
 
-  useEffect(() => {}, [recordingDetailsColumnData]);
+  useEffect(() => {
 
+  }, [recordingDetailsColumnData]);
+  
   const setNowPlaying = (event) => {
-    console.log(event.target.parentNode);
-    // setState of nowPlaying component audio element to clicked audio file link
-    // start playing music and render Artist, Venue and Date to above audio controls
+    let clickedRecording = recordingDetailsColumnData[event.target.id]
+
+    setNowPlayingBannerData(clickedRecording)
   };
 
   return (
@@ -27,10 +30,10 @@ const RecordingDetailsColumn = ({
                   SOURCE {index + 1} of {recordingDetailsColumnData.length}
                 </div>
                 <div id="recordingDetailsDiv">
-                  <p id="dateVenueDiv">
+                  <div id="dateVenueDiv">
                     <p>Date: {name.Date} </p>
                     <p>Venue: {name.Venue} </p>
-                  </p>
+                  </div>
                   <p>Mic: {name.Mic} </p>
                   <p>Recording Deck: {name.RecordingDeck}</p>
                   <p>Recording Format: {name.RecordingFormat}</p>
@@ -48,7 +51,7 @@ const RecordingDetailsColumn = ({
                     </div>
                   </div>
 
-                  <button onClick={setNowPlaying}>Play</button>
+                  <button id={index} onClick={setNowPlaying}>Play</button>
                 </div>
               </div>
             ))

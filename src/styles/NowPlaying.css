@@ -21,9 +21,16 @@
 
 .audioInfo {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   width: 350px;
   line-height: 0.93;
+  justify-content: space-between;
+}
+
+#nameVenueDiv {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 audio {
@@ -45,5 +52,7 @@ audio::-webkit-media-controls-panel {
 
 .concertDetails {
   display: flex;
-  justify-content: space-between;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: flex-end;
 }
