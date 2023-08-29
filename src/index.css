@@ -40,12 +40,12 @@ aside {
 
 aside h1 {
   text-align: center;
-  background-color: lightblue;
-  font-size: 24px;
-  padding: 14px;
+  font-weight: 400;
+  background-color: rgb(39 155 188);
+  font-size: 20px;
+  padding: 4px;
   margin: 0;
-  /* position: sticky;
-  top: 112.7px; */
+  color: rgb(255 255 255);
 }
 
 aside ul {
@@ -53,7 +53,7 @@ aside ul {
   overflow-x: hidden;
   padding: 0;
   margin: 0;
-  height: 87vh;
+  height: 86.5vh;
 }
 
 li {

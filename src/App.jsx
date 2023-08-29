@@ -8,7 +8,7 @@ import PageContent from './components/PageContent'
 function App() {
   return (
     <>
-      <NowPlaying></NowPlaying>
+      
       <PageContent></PageContent>
     </>
   )

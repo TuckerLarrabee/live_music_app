@@ -1,34 +1,34 @@
 #nowPlayingContainer {
-    display: flex;
-    flex-direction: column;
-    /* height: 8vh; */
-    background-color: #d4cbbf;
-    /* padding-top: 5px; */
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
-    box-shadow: 0 30px 40px rgba(0,0,0,.1)
+  display: flex;
+  flex-direction: column;
+  /* height: 8vh; */
+  background-color: #d4cbbf;
+  /* padding-top: 5px; */
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  box-shadow: 0 30px 40px rgba(0, 0, 0, 0.1);
 }
 
 .audioContainer {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    /* gap: 10px; */
-    font-family: 'Segoe UI', 'monospace';
-    font-size: 16px;
-    color: #333;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  font-family: "Segoe UI", "monospace";
+  font-size: 16px;
+  color: #333;
 }
 
 .audioInfo {
   display: flex;
-    flex-direction: column;
-    width: 350px;
-    /* padding-left: 55px; */
+  flex-direction: column;
+  width: 350px;
+  line-height: 0.93;
 }
 
 audio {
-    width: 600px;
+  width: 600px;
+  max-height: 28px;
 }
 
 audio::-webkit-media-controls-enclosure {
@@ -44,6 +44,6 @@ audio::-webkit-media-controls-panel {
 }
 
 .concertDetails {
-    display: flex;
-    justify-content: space-between;
-  }
+  display: flex;
+  justify-content: space-between;
+}

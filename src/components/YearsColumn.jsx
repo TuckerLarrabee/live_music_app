@@ -6,28 +6,20 @@ const YearsColumn = ({
   specificArtistRecordings,
   setShowsColumnData,
   yearShowRecordingCounts,
+  setRecordingDetailsColumnData
 }) => {
   useEffect(() => {
-    console.log(
-      "🚀 ~ file: YearsColumn.jsx:10 ~ yearShowRecordingCounts:",
-      yearShowRecordingCounts
-    );
     if (yearShowRecordingCounts.length < 2) {
-      console.log(specificArtistRecordings);
+      // console.log("🚀 ~ file: YearsColumn.jsx:13 ~ useEffect ~ yearShowRecordingCounts:", yearShowRecordingCounts)
       let specificShowDateArr = [];
       specificArtistRecordings.forEach((showdate) => {
         specificShowDateArr.push(showdate.Date);
       });
       let specificShowCount = countShows(specificShowDateArr);
-      console.log(
-        "🚀 ~ file: YearsColumn.jsx:22 ~ useEffect ~ specificShowCount:",
-        specificShowCount
-      );
       const uniqueShowListArr = [];
       const dateSet = new Set();
 
       for (let i = 0; i < specificArtistRecordings.length; i++) {
-        console.log("test")
         dateSet.add(specificArtistRecordings[i].Date)
         if (i === specificArtistRecordings.length-1) {
           const uniqueShowArr = Array.from(dateSet);
@@ -54,7 +46,6 @@ const YearsColumn = ({
         }
       }
       setShowsColumnData(uniqueShowListArr);
-
     }
   }, [specificArtistRecordings]);
 
@@ -67,12 +58,12 @@ const YearsColumn = ({
       }
     });
     let specificShowDateArr = [];
-
+    
     specificShowsForYearArr.forEach((date) => {
       specificShowDateArr.push(date.Date);
     });
     let specificShowCount = countShows(specificShowDateArr);
-
+    
     const uniqueShowListArr = [];
     const dateSet = new Set();
     for (let i = 0; i < specificShowsForYearArr.length; i++) {
@@ -88,10 +79,7 @@ const YearsColumn = ({
           });
         });
       }
-      console.log(
-        "🚀 ~ file: YearsColumn.jsx:36 ~ getSpecificShows ~ specificShowsForYearArr:",
-        specificShowsForYearArr
-      );
+      
       if (uniqueShowListArr.length) {
         uniqueShowListArr.forEach((show) => {
           specificShowsForYearArr.forEach((showData) => {
@@ -105,7 +93,11 @@ const YearsColumn = ({
         });
       }
     }
-
+    
+    const numberOfShows = Object.keys(specificShowCount).length
+    if (numberOfShows == 1) {
+      setRecordingDetailsColumnData(specificShowsForYearArr)
+    }
     setShowsColumnData(uniqueShowListArr);
   };
 

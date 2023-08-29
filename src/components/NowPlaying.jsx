@@ -1,9 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import '../styles/NowPlaying.css'
+
 // const audioSrc = require("../assets/Los_Lobos_2-26-23_Paramount_Charlottesville.wav")
 // import audioSrc from "../assets/Los_Lobos_2-26-23_Paramount_Charlottesville.wav"
 
-const NowPlaying = () => {
+
+
+const NowPlaying = ({recordingDetailsColumnData}) => {
+
+  useEffect(() => {
+    console.log(recordingDetailsColumnData)
+  }, [recordingDetailsColumnData])
+
   return (
     <div id="nowPlayingContainer">
       <div className="audioContainer">

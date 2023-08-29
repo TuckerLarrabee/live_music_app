@@ -2,6 +2,7 @@ import BandsColumn from "./BandsColumn";
 import RecordingDetailsColumn from "./RecordingDetailsColumn";
 import ShowsColumn from "./ShowsColumn";
 import YearsColumn from "./YearsColumn";
+import NowPlaying from "./NowPlaying";
 import "../styles/PageContent.css";
 import { callGoogleSheets } from "../assets/sheet";
 import { useEffect, useState, useRef } from "react";
@@ -9,12 +10,13 @@ import { useEffect, useState, useRef } from "react";
 const PageContent = () => {
   let allArtistNamesArr = [];
   const [state, setState] = useState({
-    sheetData: [], 
-    artistNamesArray: [], 
+    sheetData: [],
+    artistNamesArray: [],
     specificArtistRecordingArray: [],
     showsColumnData: [],
-    yearShowRecordingCounts: []
-   });
+    recordingDetailsColumnData: [],
+    yearShowRecordingCounts: [],
+  });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -46,58 +48,81 @@ const PageContent = () => {
   }, [state.sheetData]);
 
   useEffect(() => {
-    if (state.yearShowRecordingCounts.length > 1 && state.showsColumnData.length) {
+    if (
+      state.yearShowRecordingCounts.length > 1 &&
+      state.showsColumnData.length
+    ) {
       setState((prevState) => ({
         ...prevState,
         showsColumnData: [],
       }));
     }
-  }, [state.yearShowRecordingCounts])
+  }, [state.yearShowRecordingCounts]);
 
   const setSpecificArtistRecordingsArray = (artistRecordings) => {
     setState((prevState) => ({
       ...prevState,
       specificArtistRecordingArray: artistRecordings,
     }));
-  }
+  };
 
   const setShowsColumnData = (shows) => {
     setState((prevState) => ({
       ...prevState,
       showsColumnData: shows,
     }));
-  }
+  };
 
   const setYearShowRecordingCounts = (yearDataArr) => {
     setState((prevState) => ({
       ...prevState,
       yearShowRecordingCounts: yearDataArr,
     }));
-  }
+  };
+
+  const setRecordingDetailsColumnData = (recordingDetailsArr) => {
+    setState((prevState) => ({
+      ...prevState,
+      recordingDetailsColumnData: recordingDetailsArr,
+    }));
+  };
 
   return (
-    <section id="content">
-      <div id="dataContainer">
-        <BandsColumn
-          bandNames={state.artistNamesArray}
-          sheetData={state.sheetData}
-          setSpecificArtistRecordingsArray={setSpecificArtistRecordingsArray}
-          setShowsColumnData={setShowsColumnData}
-          setYearShowRecordingCounts={setYearShowRecordingCounts}
-        ></BandsColumn>
-        <YearsColumn
-          specificArtistRecordings={state.specificArtistRecordingArray}
-          setShowsColumnData={setShowsColumnData}
-          sheetData={state.sheetData}
-          yearShowRecordingCounts={state.yearShowRecordingCounts}
-        ></YearsColumn>
-        <ShowsColumn
-          showsColumnData={state.showsColumnData}
-          specificArtistRecordings={state.specificArtistRecordingArray}
-        ></ShowsColumn>
-        <RecordingDetailsColumn></RecordingDetailsColumn>
-      </div>
-    </section>
+    <>
+      <NowPlaying 
+      recordingDetailsColumnData={state.recordingDetailsColumnData}>
+
+      </NowPlaying>
+      <section id="content">
+        <div id="dataContainer">
+          <BandsColumn
+            bandNames={state.artistNamesArray}
+            sheetData={state.sheetData}
+            setSpecificArtistRecordingsArray={setSpecificArtistRecordingsArray}
+            setShowsColumnData={setShowsColumnData}
+            setYearShowRecordingCounts={setYearShowRecordingCounts}
+            setRecordingDetailsColumnData={setRecordingDetailsColumnData}
+          ></BandsColumn>
+          <YearsColumn
+            specificArtistRecordings={state.specificArtistRecordingArray}
+            setShowsColumnData={setShowsColumnData}
+            setRecordingDetailsColumnData={setRecordingDetailsColumnData}
+            sheetData={state.sheetData}
+            yearShowRecordingCounts={state.yearShowRecordingCounts}
+          ></YearsColumn>
+          <ShowsColumn
+            showsColumnData={state.showsColumnData}
+            specificArtistRecordings={state.specificArtistRecordingArray}
+            setRecordingDetailsColumnData={setRecordingDetailsColumnData}
+          ></ShowsColumn>
+          <RecordingDetailsColumn
+            specificArtistRecordings={state.specificArtistRecordingArray}
+            showsColumnData={state.showsColumnData}
+            recordingDetailsColumnData={state.recordingDetailsColumnData}
+          ></RecordingDetailsColumn>
+        </div>
+      </section>
+    </>
   );
 };
 
