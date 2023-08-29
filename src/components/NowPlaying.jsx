@@ -36,8 +36,8 @@ const NowPlaying = ({ recordingDetailsColumnData, nowPlayingBannerData }) => {
             <p style={{zIndex: 999}}>{state.venue}</p>
           </div>
           <div className="concertDetails">
-            <p>{state.comments}</p>
             <p>{state.date}</p>
+            <p style={{zIndex: 999}}>{state.comments}</p>
             {/*add comment here for like set 2 or set 1 */}
           </div>
         </div>

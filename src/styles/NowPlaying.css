@@ -25,11 +25,14 @@
   width: 350px;
   line-height: 0.93;
   justify-content: space-between;
+  gap: 10px;
 }
 
 #nameVenueDiv {
   display: flex;
+  flex: 3;
   flex-direction: column;
+  justify-content: space-between;
   align-items: flex-start;
 }
 
@@ -52,7 +55,9 @@ audio::-webkit-media-controls-panel {
 
 .concertDetails {
   display: flex;
-    justify-content: space-between;
+  flex: 1.5;
+    justify-content: space-evenly;
     flex-direction: column;
+    text-align: right;
     align-items: flex-end;
 }
