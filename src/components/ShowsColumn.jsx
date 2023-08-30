@@ -1,32 +1,22 @@
-import { useState, useEffect } from "react";
-import { countShows, countUniqueShowsByYear } from "../utils.js";
+import { useEffect } from "react";
 import "../styles/ShowsColumn.css";
 
-const ShowsColumn = ({ showsColumnData, specificArtistRecordings, setRecordingDetailsColumnData }) => {
-  let showArr = [];
-  let showColumnListItemObjArr = [];
-
-  const [state, setState] = useState({
-    showsData: [],
-  });
-
-  useEffect(() => {
-
-  }, [showsColumnData]);
+const ShowsColumn = ({
+  showsColumnData,
+  specificArtistRecordings,
+  setRecordingDetailsColumnData,
+}) => {
+  useEffect(() => {}, [showsColumnData]);
 
   const getSpecificShowsRecordings = (event) => {
-    // console.log(event.target);
     let specificShowsForYearArr = [];
-    let clickedYear = event.target.textContent
-    console.log("🚀 ~ file: ShowsColumn.jsx:21 ~ getSpecificShowsRecordings ~ clickedYear:", clickedYear)
+    let clickedYear = event.target.textContent;
     specificArtistRecordings.forEach((yearData) => {
       if (clickedYear == yearData.Date) {
         specificShowsForYearArr.push(yearData);
       }
     });
-    setRecordingDetailsColumnData(specificShowsForYearArr)
-    
-
+    setRecordingDetailsColumnData(specificShowsForYearArr);
   };
 
   return (

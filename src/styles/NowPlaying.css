@@ -34,6 +34,7 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
+  gap: 3.5px;
 }
 
 audio {
@@ -56,8 +57,8 @@ audio::-webkit-media-controls-panel {
 .concertDetails {
   display: flex;
   flex: 1.5;
-    justify-content: space-evenly;
-    flex-direction: column;
-    text-align: right;
-    align-items: flex-end;
+  justify-content: space-around;
+  flex-direction: column;
+  text-align: right;
+  align-items: flex-end;
 }

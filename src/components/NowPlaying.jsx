@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
 import "../styles/NowPlaying.css";
 
-// const audioSrc = require("../assets/Los_Lobos_2-26-23_Paramount_Charlottesville.wav")
-// import audioSrc from "../assets/Los_Lobos_2-26-23_Paramount_Charlottesville.wav"
-
-const NowPlaying = ({ recordingDetailsColumnData, nowPlayingBannerData }) => {
+const NowPlaying = ({ nowPlayingBannerData, audioSrc }) => {
   const [state, setState] = useState({
     artistName: "Los Lobos",
     venue: "Paramount Theatre",
     date: "2/26/2023",
     comments: "",
   });
+
+  useEffect(() => {
+    console.log(audioSrc);
+  }, [audioSrc]);
 
   useEffect(() => {
     setNowPlayingData();
@@ -25,27 +26,24 @@ const NowPlaying = ({ recordingDetailsColumnData, nowPlayingBannerData }) => {
     });
   };
 
-  // {nowPlayingBannerData.length ? nowPlayingBannerData.Band : null}
-
   return (
     <div id="nowPlayingContainer">
       <div className="audioContainer">
         <div className="audioInfo">
           <div id="nameVenueDiv">
-            <h2 className="artistName">{state.artistName}</h2>
-            <p style={{zIndex: 999}}>{state.venue}</p>
+            <h2 className="artistName">
+              {state.artistName ? state.artistName : "Los Lobos"}
+            </h2>
+            <p style={{ zIndex: 999 }}>
+              {state.venue ? state.venue : "Colisuem"}
+            </p>
           </div>
           <div className="concertDetails">
-            <p>{state.date}</p>
-            <p style={{zIndex: 999}}>{state.comments}</p>
-            {/*add comment here for like set 2 or set 1 */}
+            <p>{state.date ? state.date : "11/11/2001"}</p>
+            <p style={{ zIndex: 999 }}>{state.comments}</p>
           </div>
         </div>
-        <audio
-          controls
-          id="audio"
-          // src={audioSrc}
-        ></audio>
+        <audio controls id="audio" src={audioSrc}></audio>
       </div>
     </div>
   );

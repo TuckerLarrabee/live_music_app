@@ -1,22 +1,23 @@
 import { useEffect } from "react";
 import "../styles/RecordingDetailsColumn.css";
+import audioSrc2 from "../assets/Andrew_Bird_7-11-12_If_I_Needed_You_Lewis_Ginter_Richmond_VA.wav";
 
 const RecordingDetailsColumn = ({
-  specificArtistRecordings,
   showsColumnData,
   recordingDetailsColumnData,
-  setNowPlayingBannerData
+  setNowPlayingBannerData,
+  setAudioSrc,
 }) => {
   useEffect(() => {}, [showsColumnData]);
 
-  useEffect(() => {
+  useEffect(() => {}, [recordingDetailsColumnData]);
 
-  }, [recordingDetailsColumnData]);
-  
   const setNowPlaying = (event) => {
-    let clickedRecording = recordingDetailsColumnData[event.target.id]
-
-    setNowPlayingBannerData(clickedRecording)
+    let clickedRecording = recordingDetailsColumnData[event.target.id];
+    // This is how to setAudio source to clicked recordings audio file
+    // setAudioSrc(clickedRecording.AudioLink)
+    setAudioSrc(audioSrc2);
+    setNowPlayingBannerData(clickedRecording);
   };
 
   return (
@@ -50,8 +51,9 @@ const RecordingDetailsColumn = ({
                       </a>
                     </div>
                   </div>
-
-                  <button id={index} onClick={setNowPlaying}>Play</button>
+                  <button id={index} onClick={setNowPlaying}>
+                    Play
+                  </button>
                 </div>
               </div>
             ))

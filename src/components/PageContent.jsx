@@ -6,6 +6,7 @@ import NowPlaying from "./NowPlaying";
 import "../styles/PageContent.css";
 import { callGoogleSheets } from "../assets/sheet";
 import { useEffect, useState, useRef } from "react";
+import audioSrc from "../assets/GotJoy.mp3";
 
 const PageContent = () => {
   let allArtistNamesArr = [];
@@ -17,6 +18,7 @@ const PageContent = () => {
     recordingDetailsColumnData: [],
     yearShowRecordingCounts: [],
     nowPlayingBannerData: [],
+    audioSrc: audioSrc,
   });
 
   useEffect(() => {
@@ -95,11 +97,19 @@ const PageContent = () => {
     }));
   };
 
+  const setAudioSrc = (audio) => {
+    setState((prevState) => ({
+      ...prevState,
+      audioSrc: audio,
+    }));
+  };
+
   return (
     <>
       <NowPlaying
         recordingDetailsColumnData={state.recordingDetailsColumnData}
         nowPlayingBannerData={state.nowPlayingBannerData}
+        audioSrc={state.audioSrc}
       ></NowPlaying>
       <section id="content">
         <div id="dataContainer">
@@ -128,6 +138,8 @@ const PageContent = () => {
             showsColumnData={state.showsColumnData}
             recordingDetailsColumnData={state.recordingDetailsColumnData}
             setNowPlayingBannerData={setNowPlayingBannerData}
+            audioSrc={state.audioSrc}
+            setAudioSrc={setAudioSrc}
           ></RecordingDetailsColumn>
         </div>
       </section>

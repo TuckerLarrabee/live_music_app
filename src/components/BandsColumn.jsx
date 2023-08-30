@@ -34,7 +34,7 @@ const BandsColumn = ({
       yearCountArr.push(show.slice(-2));
     });
     let yearCountSet = new Set(yearCountArr);
-    
+
     let yearRecordingCount = countShows(yearCountArr);
     let yearDataArr = [];
     let uniqueShows = countUniqueShowsByYear(showCountArr);
@@ -52,12 +52,12 @@ const BandsColumn = ({
             recordingCount: value,
             showCount: uniqueShows[yearKey],
           };
-          
+
           yearDataArr.push(yearObj);
         }
       }
     }
-    
+
     let showCountSet = new Set(showCountArr);
     let uniqueShowCountArr = Array.from(showCountSet);
     let monthDayStringArray = [];
@@ -66,7 +66,7 @@ const BandsColumn = ({
       arg.pop();
       monthDayStringArray.push(arg.join("/"));
     });
-    
+
     if (yearCountSet.size === 1 && yearDataArr[0].showCount === 1) {
       setYearShowRecordingCounts(yearDataArr);
       setRecordingDetailsColumnData(specificArtistArray);

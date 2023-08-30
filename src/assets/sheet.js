@@ -20,11 +20,10 @@ const callGoogleSheets = async () => {
 
     const sheetDataJsObj = sheetDataText.substr(47).slice(0, -2);
     const sheetDataJSONObj = JSON.parse(sheetDataJsObj.replace(/\\/g, ""));
-    
-    artistDataArr.length= 0;
+
+    artistDataArr.length = 0;
     sheetDataJSONObj.table.rows.forEach((data) => {
       convertNullToEmptyString(data.c);
-      
 
       artistDataArr.push({
         Date: data.c[0].f,
@@ -61,4 +60,4 @@ function convertNullToEmptyString(obj) {
   }
 }
 
-export {callGoogleSheets}
+export { callGoogleSheets };
