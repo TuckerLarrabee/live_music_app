@@ -6,24 +6,17 @@ const YearsColumn = ({
   specificArtistRecordings,
   setShowsColumnData,
   yearShowRecordingCounts,
-  setRecordingDetailsColumnData
+  setRecordingDetailsColumnData,
 }) => {
   const [highlightedYear, setHighlightedYear] = useState(null);
 
-
   useEffect(() => {
-    setHighlightedYear(null)
+    setHighlightedYear(null);
     if (yearShowRecordingCounts.length == 1) {
-    //   setHighlightedYear(null)
-    //   setTimeout(() => {
-    //     setHighlightedYear(0)
-    //   },500)
-    // } else if (yearShowRecordingCounts.length == 1 && highlightedYear === null) {
       setTimeout(() => {
-        setHighlightedYear(0)
-        
+        setHighlightedYear(0);
       }, 280);
-      
+
       let specificShowDateArr = [];
       specificArtistRecordings.forEach((showdate) => {
         specificShowDateArr.push(showdate.Date);
@@ -33,8 +26,8 @@ const YearsColumn = ({
       const dateSet = new Set();
 
       for (let i = 0; i < specificArtistRecordings.length; i++) {
-        dateSet.add(specificArtistRecordings[i].Date)
-        if (i === specificArtistRecordings.length-1) {
+        dateSet.add(specificArtistRecordings[i].Date);
+        if (i === specificArtistRecordings.length - 1) {
           const uniqueShowArr = Array.from(dateSet);
           uniqueShowArr.forEach((newShowObj) => {
             uniqueShowListArr.push({
@@ -60,14 +53,15 @@ const YearsColumn = ({
       }
       setShowsColumnData(uniqueShowListArr);
     } else {
-      setHighlightedYear(null)
+      setHighlightedYear(null);
     }
   }, [specificArtistRecordings]);
 
   const getSpecificShows = (event) => {
     // do similar approach as in BandsColumn.jsx
     // to grab index id from event.target
-
+    let yearLiIndex = (event.target.id)
+    setHighlightedYear(yearLiIndex)
 
     let specificShowsForYearArr = [];
     let clickedYear = event.target.textContent.slice(-2);
@@ -77,12 +71,12 @@ const YearsColumn = ({
       }
     });
     let specificShowDateArr = [];
-    
+
     specificShowsForYearArr.forEach((date) => {
       specificShowDateArr.push(date.Date);
     });
     let specificShowCount = countShows(specificShowDateArr);
-    
+
     const uniqueShowListArr = [];
     const dateSet = new Set();
     for (let i = 0; i < specificShowsForYearArr.length; i++) {
@@ -98,7 +92,7 @@ const YearsColumn = ({
           });
         });
       }
-      
+
       if (uniqueShowListArr.length) {
         uniqueShowListArr.forEach((show) => {
           specificShowsForYearArr.forEach((showData) => {
@@ -112,10 +106,10 @@ const YearsColumn = ({
         });
       }
     }
-    
-    const numberOfShows = Object.keys(specificShowCount).length
+
+    const numberOfShows = Object.keys(specificShowCount).length;
     if (numberOfShows == 1) {
-      setRecordingDetailsColumnData(specificShowsForYearArr)
+      setRecordingDetailsColumnData(specificShowsForYearArr);
     }
     setShowsColumnData(uniqueShowListArr);
   };
@@ -130,7 +124,6 @@ const YearsColumn = ({
     background: "linear-gradient(to right, #EAEAEA, #EAEAEA)",
     backgroundSize: "0 100%",
     backgroundRepeat: "no-repeat",
-    // transition: "background-size 0.01s linear",
   };
 
   return (
@@ -139,9 +132,12 @@ const YearsColumn = ({
       <ul>
         {yearShowRecordingCounts.length
           ? yearShowRecordingCounts.map((name, index) => (
-              <li  key={index} style={highlightedYear == index ? divStyle : testDivStyle}>
+              <li
+                key={index}
+                style={highlightedYear == index ? divStyle : testDivStyle}
+              >
                 <div id="specificYearListItem">
-                  <a onClick={getSpecificShows}>{name.year}</a>
+                  <a id={index} onClick={getSpecificShows}>{name.year}</a>
                   <div id="specificYearData">
                     <p id="numberOfShows">
                       {name.showCount > 1
