@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { countShows, countUniqueShowsByYear } from "../utils.js";
+import { countShows } from "../utils.js";
 import "../styles/YearsColumn.css";
 
 const YearsColumn = ({
@@ -8,9 +8,13 @@ const YearsColumn = ({
   yearShowRecordingCounts,
   setRecordingDetailsColumnData
 }) => {
+  const [highlightedYear, setHighlightedYear] = useState(null);
+
+
   useEffect(() => {
-    if (yearShowRecordingCounts.length < 2) {
-      // console.log("🚀 ~ file: YearsColumn.jsx:13 ~ useEffect ~ yearShowRecordingCounts:", yearShowRecordingCounts)
+    if (yearShowRecordingCounts.length == 1) {
+      setHighlightedYear(0)
+      
       let specificShowDateArr = [];
       specificArtistRecordings.forEach((showdate) => {
         specificShowDateArr.push(showdate.Date);
@@ -46,6 +50,8 @@ const YearsColumn = ({
         }
       }
       setShowsColumnData(uniqueShowListArr);
+    } else {
+      setHighlightedYear(null)
     }
   }, [specificArtistRecordings]);
 
@@ -107,7 +113,7 @@ const YearsColumn = ({
       <ul>
         {yearShowRecordingCounts.length
           ? yearShowRecordingCounts.map((name, index) => (
-              <li key={index}>
+              <li style={{ backgroundColor: highlightedYear == index ? 'gainsboro' : 'inherit' }} key={index}>
                 <div id="specificYearListItem">
                   <a onClick={getSpecificShows}>{name.year}</a>
                   <div id="specificYearData">

@@ -9,7 +9,11 @@ const BandsColumn = ({
   setYearShowRecordingCounts,
   setRecordingDetailsColumnData,
 }) => {
+  const [highlightedBand, setHighlightedBand] = useState(null);
   const getSpecificArtist = (event) => {
+    let bandLiIndex = event.target.id;
+    setHighlightedBand(bandLiIndex);
+
     let specificArtistArray = [];
     let clickedArtist = event.target.textContent;
 
@@ -58,22 +62,22 @@ const BandsColumn = ({
       }
     }
 
-    let showCountSet = new Set(showCountArr);
-    let uniqueShowCountArr = Array.from(showCountSet);
-    let monthDayStringArray = [];
-    uniqueShowCountArr.forEach((show) => {
-      let arg = show.split("/");
-      arg.pop();
-      monthDayStringArray.push(arg.join("/"));
-    });
+    // let showCountSet = new Set(showCountArr);
+    // let uniqueShowCountArr = Array.from(showCountSet);
+    // let monthDayStringArray = [];
+    // uniqueShowCountArr.forEach((show) => {
+    //   let arg = show.split("/");
+    //   arg.pop();
+    //   monthDayStringArray.push(arg.join("/"));
+    // });
 
     if (yearCountSet.size === 1 && yearDataArr[0].showCount === 1) {
       setYearShowRecordingCounts(yearDataArr);
+      setSpecificArtistRecordingsArray(specificArtistArray);
       setRecordingDetailsColumnData(specificArtistArray);
-      setSpecificArtistRecordingsArray(specificArtistArray);
     } else {
-      setSpecificArtistRecordingsArray(specificArtistArray);
       setYearShowRecordingCounts(yearDataArr);
+      setSpecificArtistRecordingsArray(specificArtistArray);
       setRecordingDetailsColumnData([]);
     }
   };
@@ -81,12 +85,22 @@ const BandsColumn = ({
   return (
     <aside id="bandContainer">
       <h1>Bands: </h1>
-      <ul>
+      <ul id="bandUl">
         {bandNames.length
           ? bandNames.map((name, index) => (
-              <li key={index}>
-                <a onClick={getSpecificArtist}>{name}</a>
+              // <div className="bandLiDiv" >
+              <li
+                key={index}
+                style={{
+                  backgroundColor:
+                    highlightedBand == index ? "gainsboro" : "inherit",
+                }}
+              >
+                <a id={index} onClick={getSpecificArtist}>
+                  {name}
+                </a>
               </li>
+              // </div>
             ))
           : null}
       </ul>

@@ -25,4 +25,12 @@
 #setlistDiv {
   display: flex;
   justify-content: space-between;
+  width: 100%;
+}
+
+
+#setlistDiv div {
+  width: 80%;
+  word-break: break-all ;
+  text-align: left;
 }
