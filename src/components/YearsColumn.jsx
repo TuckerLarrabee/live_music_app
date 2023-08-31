@@ -12,8 +12,17 @@ const YearsColumn = ({
 
 
   useEffect(() => {
+    setHighlightedYear(null)
     if (yearShowRecordingCounts.length == 1) {
-      setHighlightedYear(0)
+    //   setHighlightedYear(null)
+    //   setTimeout(() => {
+    //     setHighlightedYear(0)
+    //   },500)
+    // } else if (yearShowRecordingCounts.length == 1 && highlightedYear === null) {
+      setTimeout(() => {
+        setHighlightedYear(0)
+        
+      }, 300);
       
       let specificShowDateArr = [];
       specificArtistRecordings.forEach((showdate) => {
@@ -56,6 +65,10 @@ const YearsColumn = ({
   }, [specificArtistRecordings]);
 
   const getSpecificShows = (event) => {
+    // do similar approach as in BandsColumn.jsx
+    // to grab index id from event.target
+
+
     let specificShowsForYearArr = [];
     let clickedYear = event.target.textContent.slice(-2);
     specificArtistRecordings.forEach((yearData) => {
@@ -107,13 +120,26 @@ const YearsColumn = ({
     setShowsColumnData(uniqueShowListArr);
   };
 
+  const divStyle = {
+    background: "linear-gradient(to right, #EAEAEA, #EAEAEA)",
+    backgroundSize: "100% 100%",
+    backgroundRepeat: "no-repeat",
+    transition: "background-size 0.25s linear",
+  };
+  const testDivStyle = {
+    background: "linear-gradient(to right, #EAEAEA, #EAEAEA)",
+    backgroundSize: "0 100%",
+    backgroundRepeat: "no-repeat",
+    // transition: "background-size 0.01s linear",
+  };
+
   return (
     <aside id="yearContainer">
       <h1>Years: </h1>
       <ul>
         {yearShowRecordingCounts.length
           ? yearShowRecordingCounts.map((name, index) => (
-              <li style={{ backgroundColor: highlightedYear == index ? 'gainsboro' : 'inherit' }} key={index}>
+              <li  key={index} style={highlightedYear == index ? divStyle : testDivStyle}>
                 <div id="specificYearListItem">
                   <a onClick={getSpecificShows}>{name.year}</a>
                   <div id="specificYearData">

@@ -9,7 +9,9 @@ const BandsColumn = ({
   setYearShowRecordingCounts,
   setRecordingDetailsColumnData,
 }) => {
+
   const [highlightedBand, setHighlightedBand] = useState(null);
+
   const getSpecificArtist = (event) => {
     let bandLiIndex = event.target.id;
     setHighlightedBand(bandLiIndex);
@@ -82,6 +84,19 @@ const BandsColumn = ({
     }
   };
 
+  const divStyle = {
+    background: "linear-gradient(to right, #EAEAEA, #EAEAEA)",
+    backgroundSize: "100% 100%",
+    backgroundRepeat: "no-repeat",
+    transition: "background-size 0.25s linear",
+  };
+  const testDivStyle = {
+    background: "linear-gradient(to right, #EAEAEA, #EAEAEA)",
+    backgroundSize: "0 100%",
+    backgroundRepeat: "no-repeat",
+    transition: "background-size 0.25s linear",
+  };
+
   return (
     <aside id="bandContainer">
       <h1>Bands: </h1>
@@ -91,10 +106,7 @@ const BandsColumn = ({
               // <div className="bandLiDiv" >
               <li
                 key={index}
-                style={{
-                  backgroundColor:
-                    highlightedBand == index ? "gainsboro" : "inherit",
-                }}
+                style={highlightedBand == index ? divStyle : testDivStyle}
               >
                 <a id={index} onClick={getSpecificArtist}>
                   {name}
