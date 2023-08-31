@@ -22,7 +22,7 @@ const YearsColumn = ({
       setTimeout(() => {
         setHighlightedYear(0)
         
-      }, 300);
+      }, 280);
       
       let specificShowDateArr = [];
       specificArtistRecordings.forEach((showdate) => {

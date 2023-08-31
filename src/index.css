@@ -58,8 +58,8 @@ aside ul {
 
 li {
   list-style: none;
-  border-top: 1px solid lightgrey;
-  border-bottom: 1px solid lightgrey;
+  /* border-top: 1px solid #EAEAEA; */
+  border-bottom: 1px solid #EAEAEA;
   padding: 7px 0px 7px 4px;
 
 }
