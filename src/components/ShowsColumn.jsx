@@ -7,13 +7,18 @@ const ShowsColumn = ({
   setRecordingDetailsColumnData,
 }) => {
   const [highlightedShow, setHighlightedShow] = useState(null);
-
+  
   useEffect(() => {
+    // console.log("🚀 ~ file: ShowsColumn.jsx:9 ~ specificArtistRecordings:", specificArtistRecordings)
     setHighlightedShow(null)
-    if (showsColumnData.length == 1) {
+    if (showsColumnData.length == 1 && specificArtistRecordings.length > 1) {
       setTimeout(() => {
         setHighlightedShow(0);
-      }, 550);
+      }, 280);
+    } else if (showsColumnData.length == 1) {
+      setTimeout(() => {
+        setHighlightedShow(0);
+      }, 540);
     }
   }, [showsColumnData]);
 
@@ -41,7 +46,7 @@ const ShowsColumn = ({
     background: "linear-gradient(to right, #EAEAEA, #EAEAEA)",
     backgroundSize: "0 100%",
     backgroundRepeat: "no-repeat",
-    transition: "background-size 0.25s linear",
+    // transition: "background-size 0.25s linear",
   };
 
   return (

@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, setState } from "react";
 import "../styles/BandsColumn.css";
 import { countShows, countUniqueShowsByYear } from "../utils.js";
+import SearchInput from "./Search";
 
 const BandsColumn = ({
   bandNames,
@@ -8,9 +9,23 @@ const BandsColumn = ({
   setSpecificArtistRecordingsArray,
   setYearShowRecordingCounts,
   setRecordingDetailsColumnData,
+  setBandsSearched
 }) => {
-
   const [highlightedBand, setHighlightedBand] = useState(null);
+  const [searchedArtists, setSearchedArtists] = useState([])
+  
+  useEffect(() => {
+    setSearchedArtists(bandNames)
+  }, [bandNames])
+  
+  useEffect(() => {
+    // console.log("🚀 ~ file: BandsColumn.jsx:14 ~ bandNames:", bandNames)
+    // console.log("🚀 ~ file: BandsColumn.jsx:16 ~ searchedArtists:", searchedArtists)
+  }, [searchedArtists])
+
+  const filterBands = (searchedItems) => {
+    setSearchedArtists(searchedItems)
+  };
 
   const getSpecificArtist = (event) => {
     let bandLiIndex = event.target.id;
@@ -84,6 +99,7 @@ const BandsColumn = ({
     }
   };
 
+
   const divStyle = {
     background: "linear-gradient(to right, #EAEAEA, #EAEAEA)",
     backgroundSize: "100% 100%",
@@ -99,11 +115,14 @@ const BandsColumn = ({
 
   return (
     <aside id="bandContainer">
-      <h1>Bands: </h1>
+      <div id="headerDiv">
+        <SearchInput bandNames={bandNames} setBandsSearched={setBandsSearched} searchedArtists={searchedArtists} filterBands={filterBands}></SearchInput>
+        <h1 id="bandHeaderText"> Bands:</h1>
+      </div>
       <ul id="bandUl">
-        {bandNames.length
-          ? bandNames.map((name, index) => (
-              // <div className="bandLiDiv" >
+        {/* {searchedArtists.length
+          ? */}
+           {searchedArtists.map((name, index) => (
               <li
                 key={index}
                 style={highlightedBand == index ? divStyle : testDivStyle}
@@ -112,9 +131,18 @@ const BandsColumn = ({
                   {name}
                 </a>
               </li>
-              // </div>
-            ))
-          : null}
+            ))}
+          {/* : bandNames.map((name, index) => (
+            <li
+              key={index}
+              style={highlightedBand == index ? divStyle : testDivStyle}
+            >
+              <a id={index} onClick={getSpecificArtist}>
+                {name}
+              </a>
+            </li>
+          )) */}
+          {/* } */}
       </ul>
     </aside>
   );
