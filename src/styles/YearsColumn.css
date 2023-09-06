@@ -5,12 +5,37 @@
     padding: 0 3px;
 }
 
+#specificYearListItem a {
+    width: 67%;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    padding-left: 5px;
+}
+
 #specificYearData {
     text-align: right;
+    display: flex;
+    flex-direction: column;
+    cursor: default
 }
 
 
 #numberOfShows, #numberOfRecordings {
     font-size: 0.8rem;
     color: rgb(151 151 151)
+}
+
+.yearParentDiv {
+   display: flex;
+   border-bottom: 1px solid #eaeaea;
+   cursor: pointer;
+}
+
+.yearSiblingDiv {
+    width: 9px;
+}
+
+.yearParentDiv li {
+    width: 97%;
 }

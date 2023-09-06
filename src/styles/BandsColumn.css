@@ -7,7 +7,6 @@ ul {
 
 #bandUl {
   text-align: left;
-  padding-left: 4px;
 }
 
 #bandLiDiv {
@@ -33,6 +32,26 @@ ul {
   position: relative
 }
 
-#bandHeaderText {
-  /* width: 100%; */
+.bandParentDiv {
+  display: flex;
+  border-bottom: 1px solid #eaeaea;
+  cursor: pointer;
+}
+
+.bandLiDiv {
+  width: 9px;
+}
+
+.bandLi {
+  /* display: flex;
+  align-items: center;
+  justify-content: space-evenly; */
+  padding-left: 7px;
+  /* height: 38px; */
+}
+
+.bandLi a {
+  height: 38px;
+  display: flex;
+  align-items: center;
 }

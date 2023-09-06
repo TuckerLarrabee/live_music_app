@@ -88,13 +88,13 @@ const BandsColumn = ({
   };
 
   const divStyle = {
-    background: "linear-gradient(to right, #EAEAEA, #EAEAEA)",
+    background: "linear-gradient(to right, #7e7979, #7e7979)",
     backgroundSize: "100% 100%",
     backgroundRepeat: "no-repeat",
     transition: "background-size 0.25s linear",
   };
   const testDivStyle = {
-    background: "linear-gradient(to right, #EAEAEA, #EAEAEA)",
+    background: "linear-gradient(to right, #7e7979, #7e7979)",
     backgroundSize: "0 100%",
     backgroundRepeat: "no-repeat",
     transition: "background-size 0.25s linear",
@@ -112,14 +112,20 @@ const BandsColumn = ({
       </div>
       <ul id="bandUl">
         {searchedArtists.map((name, index) => (
-          <li
-            key={index}
-            style={highlightedBand == name ? divStyle : testDivStyle}
-          >
-            <a id={name} onClick={getSpecificArtist}>
-              {name}
-            </a>
-          </li>
+          <div key={index} onClick={getSpecificArtist} id={name} className="bandParentDiv"> 
+            <div
+              className="bandLiDiv"
+              style={highlightedBand == name ? divStyle : testDivStyle}
+            ></div>
+            <li
+            className="bandLi"
+              key={index}
+            >
+              <a id={name}>
+                {name}
+              </a>
+            </li>
+          </div>
         ))}
       </ul>
     </aside>

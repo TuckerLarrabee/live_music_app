@@ -14,7 +14,11 @@ const YearsColumn = ({
     setHighlightedYear(null);
     if (yearShowRecordingCounts.length == 1) {
       setTimeout(() => {
-        setHighlightedYear(0);
+        console.log(
+          "🚀 ~ file: YearsColumn.jsx:11 ~ specificArtistRecordings:",
+          "20" + specificArtistRecordings[0].Date.slice(-2)
+        );
+        setHighlightedYear("20" + specificArtistRecordings[0].Date.slice(-2));
       }, 280);
 
       let specificShowDateArr = [];
@@ -60,8 +64,8 @@ const YearsColumn = ({
   const getSpecificShows = (event) => {
     // do similar approach as in BandsColumn.jsx
     // to grab index id from event.target
-    let yearLiIndex = (event.target.id)
-    setHighlightedYear(yearLiIndex)
+    let yearLiIndex = event.target.id;
+    setHighlightedYear(yearLiIndex);
 
     let specificShowsForYearArr = [];
     let clickedYear = event.target.textContent.slice(-2);
@@ -115,43 +119,48 @@ const YearsColumn = ({
   };
 
   const divStyle = {
-    background: "linear-gradient(to right, #EAEAEA, #EAEAEA)",
+    background: "linear-gradient(to right, #7e7979, #7e7979)",
     backgroundSize: "100% 100%",
     backgroundRepeat: "no-repeat",
     transition: "background-size 0.25s linear",
   };
   const testDivStyle = {
-    background: "linear-gradient(to right, #EAEAEA, #EAEAEA)",
+    background: "linear-gradient(to right, #7e7979, #7e7979)",
     backgroundSize: "0 100%",
     backgroundRepeat: "no-repeat",
+    transition: "background-size 0.25s linear",
   };
-
   return (
     <aside id="yearContainer">
       <h1>Years: </h1>
       <ul>
         {yearShowRecordingCounts.length
           ? yearShowRecordingCounts.map((name, index) => (
-              <li
-                key={index}
-                style={highlightedYear == index ? divStyle : testDivStyle}
-              >
-                <div id="specificYearListItem">
-                  <a id={index} onClick={getSpecificShows}>{name.year}</a>
-                  <div id="specificYearData">
-                    <p id="numberOfShows">
-                      {name.showCount > 1
-                        ? name.showCount + " shows"
-                        : name.showCount + " show"}
-                    </p>
-                    <p id="numberOfRecordings">
-                      {name.recordingCount > 1
-                        ? name.recordingCount + " recordings"
-                        : name.recordingCount + " recording"}
-                    </p>
+              <div  className="yearParentDiv">
+                <div style={highlightedYear == name.year ? divStyle : testDivStyle} className="yearSiblingDiv"></div>
+                <li
+                  key={index}
+                  onClick={getSpecificShows}
+                >
+                  <div id="specificYearListItem">
+                    <a id={name.year} >
+                      {name.year}
+                    </a>
+                    <div id="specificYearData">
+                      <p id="numberOfShows">
+                        {name.showCount > 1
+                          ? name.showCount + " shows"
+                          : name.showCount + " show"}
+                      </p>
+                      <p id="numberOfRecordings">
+                        {name.recordingCount > 1
+                          ? name.recordingCount + " recordings"
+                          : name.recordingCount + " recording"}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              </li>
+                </li>
+              </div>
             ))
           : null}
       </ul>
