@@ -9,22 +9,19 @@ const BandsColumn = ({
   setSpecificArtistRecordingsArray,
   setYearShowRecordingCounts,
   setRecordingDetailsColumnData,
-  setBandsSearched
+  setBandsSearched,
 }) => {
   const [highlightedBand, setHighlightedBand] = useState(null);
-  const [searchedArtists, setSearchedArtists] = useState([])
-  
+  const [searchedArtists, setSearchedArtists] = useState([]);
+
   useEffect(() => {
-    setSearchedArtists(bandNames)
-  }, [bandNames])
-  
-  useEffect(() => {
-    // console.log("🚀 ~ file: BandsColumn.jsx:14 ~ bandNames:", bandNames)
-    // console.log("🚀 ~ file: BandsColumn.jsx:16 ~ searchedArtists:", searchedArtists)
-  }, [searchedArtists])
+    setSearchedArtists(bandNames);
+  }, [bandNames]);
+
+  useEffect(() => {}, [searchedArtists]);
 
   const filterBands = (searchedItems) => {
-    setSearchedArtists(searchedItems)
+    setSearchedArtists(searchedItems);
   };
 
   const getSpecificArtist = (event) => {
@@ -79,15 +76,6 @@ const BandsColumn = ({
       }
     }
 
-    // let showCountSet = new Set(showCountArr);
-    // let uniqueShowCountArr = Array.from(showCountSet);
-    // let monthDayStringArray = [];
-    // uniqueShowCountArr.forEach((show) => {
-    //   let arg = show.split("/");
-    //   arg.pop();
-    //   monthDayStringArray.push(arg.join("/"));
-    // });
-
     if (yearCountSet.size === 1 && yearDataArr[0].showCount === 1) {
       setYearShowRecordingCounts(yearDataArr);
       setSpecificArtistRecordingsArray(specificArtistArray);
@@ -98,7 +86,6 @@ const BandsColumn = ({
       setRecordingDetailsColumnData([]);
     }
   };
-
 
   const divStyle = {
     background: "linear-gradient(to right, #EAEAEA, #EAEAEA)",
@@ -116,33 +103,24 @@ const BandsColumn = ({
   return (
     <aside id="bandContainer">
       <div id="headerDiv">
-        <SearchInput bandNames={bandNames} setBandsSearched={setBandsSearched} searchedArtists={searchedArtists} filterBands={filterBands}></SearchInput>
+        <SearchInput
+          bandNames={bandNames}
+          setBandsSearched={setBandsSearched}
+          filterBands={filterBands}
+        ></SearchInput>
         <h1 id="bandHeaderText"> Bands:</h1>
       </div>
       <ul id="bandUl">
-        {/* {searchedArtists.length
-          ? */}
-           {searchedArtists.map((name, index) => (
-              <li
-                key={index}
-                style={highlightedBand == index ? divStyle : testDivStyle}
-              >
-                <a id={index} onClick={getSpecificArtist}>
-                  {name}
-                </a>
-              </li>
-            ))}
-          {/* : bandNames.map((name, index) => (
-            <li
-              key={index}
-              style={highlightedBand == index ? divStyle : testDivStyle}
-            >
-              <a id={index} onClick={getSpecificArtist}>
-                {name}
-              </a>
-            </li>
-          )) */}
-          {/* } */}
+        {searchedArtists.map((name, index) => (
+          <li
+            key={index}
+            style={highlightedBand == name ? divStyle : testDivStyle}
+          >
+            <a id={name} onClick={getSpecificArtist}>
+              {name}
+            </a>
+          </li>
+        ))}
       </ul>
     </aside>
   );
