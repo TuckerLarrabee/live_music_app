@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, setState } from "react";
 import "../styles/BandsColumn.css";
 import { countShows, countUniqueShowsByYear } from "../utils.js";
+import SearchInput from "./Search";
 
 const BandsColumn = ({
   bandNames,
@@ -8,9 +9,20 @@ const BandsColumn = ({
   setSpecificArtistRecordingsArray,
   setYearShowRecordingCounts,
   setRecordingDetailsColumnData,
+  setBandsSearched,
 }) => {
-
   const [highlightedBand, setHighlightedBand] = useState(null);
+  const [searchedArtists, setSearchedArtists] = useState([]);
+
+  useEffect(() => {
+    setSearchedArtists(bandNames);
+  }, [bandNames]);
+
+  useEffect(() => {}, [searchedArtists]);
+
+  const filterBands = (searchedItems) => {
+    setSearchedArtists(searchedItems);
+  };
 
   const getSpecificArtist = (event) => {
     let bandLiIndex = event.target.id;
@@ -64,15 +76,6 @@ const BandsColumn = ({
       }
     }
 
-    // let showCountSet = new Set(showCountArr);
-    // let uniqueShowCountArr = Array.from(showCountSet);
-    // let monthDayStringArray = [];
-    // uniqueShowCountArr.forEach((show) => {
-    //   let arg = show.split("/");
-    //   arg.pop();
-    //   monthDayStringArray.push(arg.join("/"));
-    // });
-
     if (yearCountSet.size === 1 && yearDataArr[0].showCount === 1) {
       setYearShowRecordingCounts(yearDataArr);
       setSpecificArtistRecordingsArray(specificArtistArray);
@@ -99,22 +102,25 @@ const BandsColumn = ({
 
   return (
     <aside id="bandContainer">
-      <h1>Bands: </h1>
+      <div id="headerDiv">
+        <SearchInput
+          bandNames={bandNames}
+          setBandsSearched={setBandsSearched}
+          filterBands={filterBands}
+        ></SearchInput>
+        <h1 id="bandHeaderText"> Bands:</h1>
+      </div>
       <ul id="bandUl">
-        {bandNames.length
-          ? bandNames.map((name, index) => (
-              // <div className="bandLiDiv" >
-              <li
-                key={index}
-                style={highlightedBand == index ? divStyle : testDivStyle}
-              >
-                <a id={index} onClick={getSpecificArtist}>
-                  {name}
-                </a>
-              </li>
-              // </div>
-            ))
-          : null}
+        {searchedArtists.map((name, index) => (
+          <li
+            key={index}
+            style={highlightedBand == name ? divStyle : testDivStyle}
+          >
+            <a id={name} onClick={getSpecificArtist}>
+              {name}
+            </a>
+          </li>
+        ))}
       </ul>
     </aside>
   );

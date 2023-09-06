@@ -10,7 +10,7 @@ const NowPlaying = ({ nowPlayingBannerData, audioSrc }) => {
   });
 
   useEffect(() => {
-    console.log(audioSrc);
+    // console.log(audioSrc);
   }, [audioSrc]);
 
   useEffect(() => {

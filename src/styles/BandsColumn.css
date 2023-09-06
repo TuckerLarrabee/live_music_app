@@ -14,3 +14,25 @@ ul {
   display: flex;
 }
 
+#bandColumnH1 {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0;
+  gap: 13%;
+}
+
+#titleAndSearchDiv {
+  position: relative;
+}
+
+#titleAndSearchDiv h1 {
+    width: 100%;
+}
+
+#headerDiv {
+  position: relative
+}
+
+#bandHeaderText {
+  /* width: 100%; */
+}

@@ -104,6 +104,13 @@ const PageContent = () => {
     }));
   };
 
+  const setBandsSearched = (searchedItems) => {
+    setState((prevState) => ({
+      ...prevState,
+      artistNamesArray: searchedItems,
+    }));
+  };
+
   return (
     <>
       <NowPlaying
@@ -120,6 +127,7 @@ const PageContent = () => {
             setShowsColumnData={setShowsColumnData}
             setYearShowRecordingCounts={setYearShowRecordingCounts}
             setRecordingDetailsColumnData={setRecordingDetailsColumnData}
+            setBandsSearched={setBandsSearched}
           ></BandsColumn>
           <YearsColumn
             specificArtistRecordings={state.specificArtistRecordingArray}
