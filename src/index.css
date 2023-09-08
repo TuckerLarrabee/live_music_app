@@ -58,25 +58,19 @@ aside ul {
 
 li {
   list-style: none;
-  /* border-top: 1px solid #EAEAEA; */
-  /* border-bottom: 1px solid #eaeaea; */
-  /* padding: 7px 0px 7px 7px; */
 }
 
 button {
   border-radius: 8px;
   border: 1px solid transparent;
-  /* padding: 0.6em 1.2em; */
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: white;
   cursor: pointer;
   transition: border-color 0.15s;
 }
-button:hover {
-  border-color: #181c2f;
-}
+
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
@@ -90,7 +84,67 @@ button:focus-visible {
   a:hover {
     color: rgb(13, 96, 119);
   }
-  button {
-    background-color: #f9f9f9;
+}
+
+@media (min-height: 650px) {
+  #dataContainer ul {
+    height: 85vh;
+  }
+}
+@media (min-height: 675px) {
+  #dataContainer ul {
+    height: 85.4vh;
+  }
+}
+@media (min-height: 690px) {
+  #dataContainer ul {
+    height: 85.7vh;
+  }
+}
+@media (min-height: 701px) {
+  #dataContainer ul {
+    height: 85.9vh;
+  }
+}
+@media (min-height: 729px) {
+  #dataContainer ul {
+    height: 86.5vh;
+  }
+}
+@media (min-height: 755px) {
+  #dataContainer ul {
+    height: 86.9vh;
+  }
+}
+@media (min-height: 800px) {
+  #dataContainer ul {
+    height: 87.5vh;
+  }
+}
+
+@media (min-height: 850px) {
+  #dataContainer ul {
+    height: 88.43vh;
+  }
+}
+@media (min-height: 900px) {
+  #dataContainer ul {
+    height: 89vh;
+  }
+}
+
+@media (min-height: 956px) {
+  #dataContainer ul {
+    height: 89.7vh;
+  }
+}
+@media (min-height: 966px) {
+  #dataContainer ul {
+    height: 89.8vh;
+  }
+}
+@media (min-height: 976px) {
+  #dataContainer ul {
+    height: 89.9vh;
   }
 }

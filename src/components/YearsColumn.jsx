@@ -119,13 +119,13 @@ const YearsColumn = ({
   };
 
   const divStyle = {
-    background: "linear-gradient(to right, #7e7979, #7e7979)",
+    background: "linear-gradient(to right, #615b5b, #615b5b)",
     backgroundSize: "100% 100%",
     backgroundRepeat: "no-repeat",
     transition: "background-size 0.25s linear",
   };
   const testDivStyle = {
-    background: "linear-gradient(to right, #7e7979, #7e7979)",
+    background: "linear-gradient(to right, #615b5b, #615b5b)",
     backgroundSize: "0 100%",
     backgroundRepeat: "no-repeat",
     transition: "background-size 0.25s linear",
@@ -136,7 +136,7 @@ const YearsColumn = ({
       <ul>
         {yearShowRecordingCounts.length
           ? yearShowRecordingCounts.map((name, index) => (
-              <div  className="yearParentDiv">
+              <div key={index}  className="yearParentDiv">
                 <div style={highlightedYear == name.year ? divStyle : testDivStyle} className="yearSiblingDiv"></div>
                 <li
                   key={index}
