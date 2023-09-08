@@ -43,11 +43,7 @@ ul {
 }
 
 .bandLi {
-  /* display: flex;
-  align-items: center;
-  justify-content: space-evenly; */
   padding-left: 7px;
-  /* height: 38px; */
 }
 
 .bandLi a {

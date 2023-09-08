@@ -28,9 +28,37 @@
   width: 100%;
 }
 
-
 #setlistDiv div {
   width: 80%;
-  word-break: break-all ;
+  word-break: break-all;
   text-align: left;
+}
+
+.recordingParentDiv {
+  display: flex;
+}
+
+.recordingLiDiv {
+  width: 3%;
+}
+
+.detailsParentDiv {
+  width: 97%;
+  padding-left: 7px;
+}
+
+.recordingInfoParentDiv {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.recordingInfoDiv {
+  text-align: left;
+}
+.dateAndPlayDiv {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
 }

@@ -1,4 +1,4 @@
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import "../styles/ShowsColumn.css";
 
 const ShowsColumn = ({
@@ -7,24 +7,24 @@ const ShowsColumn = ({
   setRecordingDetailsColumnData,
 }) => {
   const [highlightedShow, setHighlightedShow] = useState(null);
-  
+
   useEffect(() => {
     // console.log("🚀 ~ file: ShowsColumn.jsx:9 ~ specificArtistRecordings:", specificArtistRecordings)
-    setHighlightedShow(null)
+    setHighlightedShow(null);
     if (showsColumnData.length == 1 && specificArtistRecordings.length > 1) {
       setTimeout(() => {
-        setHighlightedShow(0);
+        setHighlightedShow(showsColumnData[0].date);
       }, 280);
     } else if (showsColumnData.length == 1) {
       setTimeout(() => {
-        setHighlightedShow(0);
+        setHighlightedShow(showsColumnData[0].date);
       }, 540);
     }
   }, [showsColumnData]);
 
   const getSpecificShowsRecordings = (event) => {
-    let showIndex = event.target.id
-    setHighlightedShow(showIndex)
+    let showDate = event.target.id;
+    setHighlightedShow(showDate);
     let specificShowsForYearArr = [];
     let clickedYear = event.target.textContent;
     specificArtistRecordings.forEach((yearData) => {
@@ -36,17 +36,16 @@ const ShowsColumn = ({
   };
 
   const divStyle = {
-    background: "linear-gradient(to right, #EAEAEA, #EAEAEA)",
+    background: "linear-gradient(to right, #615b5b, #615b5b)",
     backgroundSize: "100% 100%",
     backgroundRepeat: "no-repeat",
     transition: "background-size 0.25s linear",
   };
-
   const testDivStyle = {
-    background: "linear-gradient(to right, #EAEAEA, #EAEAEA)",
+    background: "linear-gradient(to right, #615b5b, #615b5b)",
     backgroundSize: "0 100%",
     backgroundRepeat: "no-repeat",
-    // transition: "background-size 0.25s linear",
+    transition: "background-size 0.25s linear",
   };
 
   return (
@@ -55,20 +54,30 @@ const ShowsColumn = ({
       <ul>
         {showsColumnData.length
           ? showsColumnData.map((name, index) => (
-              <li key={index} style={highlightedShow == index ? divStyle : testDivStyle} >
-                <div id="specificShowListItem">
-                  <div id="dateLocationDiv">
-                    <a id={index} onClick={getSpecificShowsRecordings}>{name.date}</a>
-                    <p id="venue">{name.venue}</p>
-                    <p id="cityState">{name.city + ", " + name.state}</p>
+              <div key={index} className="showParentDiv">
+                <div
+                  style={highlightedShow == name.date ? divStyle : testDivStyle}
+                  className="showLiDiv"
+                ></div>
+                <li className="showLi" key={index}>
+                  <div id="specificShowListItem">
+                    <div id="dateLocationDiv">
+                      <a id={name.date} onClick={getSpecificShowsRecordings}>
+                        {name.date}
+                      </a>
+                      <div className="venueCityDiv">
+                        <p id="venue">{name.venue}</p>
+                        <p id="cityState">{name.city + ", " + name.state}</p>
+                      </div>
+                    </div>
+                    <div id="numberRecordingDiv">
+                      {name.recordingCount > 1
+                        ? name.recordingCount + " recordings"
+                        : name.recordingCount + " recording"}
+                    </div>
                   </div>
-                  <div id="numberRecordingDiv">
-                    {name.recordingCount > 1
-                      ? name.recordingCount + " recordings"
-                      : name.recordingCount + " recording"}
-                  </div>
-                </div>
-              </li>
+                </li>
+              </div>
             ))
           : null}
       </ul>

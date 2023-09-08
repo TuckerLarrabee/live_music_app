@@ -1,23 +1,62 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "../styles/RecordingDetailsColumn.css";
-import audioSrc2 from "../assets/Andrew_Bird_7-11-12_If_I_Needed_You_Lewis_Ginter_Richmond_VA.wav";
 
 const RecordingDetailsColumn = ({
-  showsColumnData,
   recordingDetailsColumnData,
   setNowPlayingBannerData,
   setAudioSrc,
 }) => {
-  useEffect(() => {}, [showsColumnData]);
+  const [highlightedRecording, setHighlightedRecording] = useState(null);
 
-  useEffect(() => {}, [recordingDetailsColumnData]);
+  useEffect(() => {
+    setHighlightedRecording(null);
+  }, [recordingDetailsColumnData]);
 
   const setNowPlaying = (event) => {
+    console.log(
+      "🚀 ~ file: RecordingDetailsColumn.jsx:19 ~ setNowPlaying ~ event:",
+      event.target
+    );
     let clickedRecording = recordingDetailsColumnData[event.target.id];
-    // This is how to setAudio source to clicked recordings audio file
-    // setAudioSrc(clickedRecording.AudioLink)
-    setAudioSrc(audioSrc2);
+    console.log(
+      "🚀 ~ file: RecordingDetailsColumn.jsx:20 ~ setNowPlaying ~ clickedRecording:",
+      clickedRecording
+    );
+    setHighlightedRecording(event.target.id);
+    // setAudioSrc(audioSrc2);
     setNowPlayingBannerData(clickedRecording);
+  };
+
+  const divStyle = {
+    background: "linear-gradient(to right, #615b5b, #615b5b)",
+    backgroundSize: "100% 100%",
+    backgroundRepeat: "no-repeat",
+    transition: "background-size 0.25s linear",
+  };
+  const testDivStyle = {
+    background: "linear-gradient(to right, #615b5b, #615b5b)",
+    backgroundSize: "0 100%",
+    backgroundRepeat: "no-repeat",
+    transition: "background-size 0.15s linear",
+  };
+
+  const triangle = {
+    width: 0,
+    height: 0,
+    outline: "none",
+    boxShadow: "none",
+    borderTop: "20px solid transparent",
+    borderBottom: "20px solid transparent",
+    borderLeft: "25px solid rgb(39 155 188)",
+  };
+  const triangleClicked = {
+    width: 0,
+    height: 0,
+    outline: "none",
+    boxShadow: "none",
+    borderTop: "20px solid transparent",
+    borderBottom: "20px solid transparent",
+    borderLeft: "25px solid rgb(22, 148, 11)",
   };
 
   return (
@@ -30,30 +69,51 @@ const RecordingDetailsColumn = ({
                 <div id="recordingBanner">
                   SOURCE {index + 1} of {recordingDetailsColumnData.length}
                 </div>
-                <div id="recordingDetailsDiv">
-                  <div id="dateVenueDiv">
-                    <p>Date: {name.Date} </p>
-                    <p>Venue: {name.Venue} </p>
-                  </div>
-                  <p>Mic: {name.Mic} </p>
-                  <p>Recording Deck: {name.RecordingDeck}</p>
-                  <p>Recording Format: {name.RecordingFormat}</p>
-                  <p>Notes: {name.Comments} </p>
-                  <div id="setlistDiv">
-                    <p>Setlist:</p>
-                    <div>
-                      <a
-                        style={{ textDecoration: "none" }}
-                        target="_blank"
-                        href={name.setlistFMlink}
-                      >
-                        {name.setlistFMlink}
-                      </a>
+                <div className="recordingParentDiv">
+                  <div
+                    style={
+                      highlightedRecording == index ? divStyle : testDivStyle
+                    }
+                    className="recordingLiDiv"
+                  ></div>
+                  <div className="detailsParentDiv" key={index}>
+                    <div id="recordingDetailsDiv">
+                      <div className="recordingInfoParentDiv">
+                        <div className="recordingInfoDiv">
+                          <p>Venue: {name.Venue} </p>
+                          <p>Mic: {name.Mic} </p>
+                          <p>Recording Deck: {name.RecordingDeck}</p>
+                          <p>Recording Format: {name.RecordingFormat}</p>
+                          <p>Notes: {name.Comments} </p>
+                        </div>
+                        <div className="dateAndPlayDiv">
+                          <p>Date: {name.Date} </p>
+                          <button
+                            style={
+                              highlightedRecording == index
+                                ? triangleClicked
+                                : triangle
+                            }
+                            onClick={setNowPlaying}
+                            id={index}
+                            className="triangle"
+                          ></button>
+                        </div>
+                      </div>
+                      <div id="setlistDiv">
+                        <p>Setlist:</p>
+                        <div>
+                          <a
+                            style={{ textDecoration: "none" }}
+                            target="_blank"
+                            href={name.setlistFMlink}
+                          >
+                            {name.setlistFMlink}
+                          </a>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  <button id={index} onClick={setNowPlaying}>
-                    Play
-                  </button>
                 </div>
               </div>
             ))

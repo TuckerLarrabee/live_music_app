@@ -1,27 +1,55 @@
 #specificShowListItem {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 3px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 3px;
+  height: 100%;
 }
 
 #dateLocationDiv {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    line-height: 1.35;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.35;
+  height: 100%;
+  justify-content: space-between;
 }
 
 #dateLocationDiv a {
-    color: black;
-    font-weight: 450;
+  color: black;
+  font-weight: 450;
+  padding-top: 2px;
 }
 
-#venue, #cityState, #numberRecordingDiv {
-    font-size: 0.8rem;
-    color: rgb(151 151 151)
+#venue,
+#cityState,
+#numberRecordingDiv {
+  font-size: 0.8rem;
+  color: rgb(151 151 151);
 }
 
 #numberRecordingDiv {
-    align-self: start;
+  padding-top: 2px;
+  align-self: start;
+}
+
+.showParentDiv {
+  display: flex;
+  border-bottom: 1px solid #eaeaea;
+  cursor: pointer;
+  height: 66px;
+}
+
+.showLiDiv {
+  width: 3%;
+}
+
+.showLi {
+  padding-left: 2px;
+  width: 100%;
+}
+
+.venueCityDiv {
+  text-align: left;
+  padding-bottom: 2px;
 }

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import { fas } from "@fortawesome/free-solid-svg-icons";
 import "../styles/Search.css";
 
 const SearchInput = ({ filterBands, bandNames }) => {
