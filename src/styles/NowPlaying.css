@@ -57,8 +57,9 @@ audio::-webkit-media-controls-panel {
 .concertDetails {
   display: flex;
   flex: 1.5;
-  justify-content: space-around;
+  /* justify-content: space-around; */
   flex-direction: column;
   text-align: right;
   align-items: flex-end;
+  padding-top: 5px;
 }
