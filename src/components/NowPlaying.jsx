@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import ReactPlayer from "react-player";
 import "../styles/NowPlaying.css";
 
 const NowPlaying = ({ nowPlayingBannerData, audioSrc }) => {
@@ -7,7 +8,20 @@ const NowPlaying = ({ nowPlayingBannerData, audioSrc }) => {
     venue: "Paramount Theatre",
     date: "2/26/2023",
     comments: "",
+    playing: false,
   });
+  const playerRef = useRef(null);
+
+  const playAudio = () => {
+    setState((prevState) => ({ ...prevState, playing: true }));
+    playerRef.current.seekTo(0);
+  };
+
+  useEffect(() => {
+    setTimeout(() => {
+      playAudio();
+    }, 1);
+  }, [audioSrc]);
 
   useEffect(() => {
     setNowPlayingData();
@@ -28,18 +42,25 @@ const NowPlaying = ({ nowPlayingBannerData, audioSrc }) => {
         <div className="audioInfo">
           <div id="nameVenueDiv">
             <h2 className="artistName">
-              {state.artistName ? state.artistName : "Los Lobos"}
+              {state.artistName ? state.artistName : "Aimee Mann"}
             </h2>
             <p style={{ zIndex: 999 }}>
-              {state.venue ? state.venue : "Colisuem"}
+              {state.venue ? state.venue : "Tin Pan"}
             </p>
           </div>
           <div className="concertDetails">
-            <p>{state.date ? state.date : "11/11/2001"}</p>
-            <p style={{ zIndex: 999 }}>{state.comments}</p>
+            <p>{state.date ? state.date : "1/30/18"}</p>
+            {/* <p style={{ zIndex: 999 }}>{state.comments}</p> */}
           </div>
         </div>
-        <audio controls id="audio" src={audioSrc}></audio>
+        <ReactPlayer
+          ref={playerRef}
+          style={{ width: 600, maxHeight: 28 }}
+          url={audioSrc}
+          controls
+          id="audio"
+          playing={state.playing}
+        ></ReactPlayer>
       </div>
     </div>
   );

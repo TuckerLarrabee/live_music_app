@@ -6,7 +6,8 @@ import NowPlaying from "./NowPlaying";
 import "../styles/PageContent.css";
 import { callGoogleSheets } from "../assets/sheet";
 import { useEffect, useState, useRef } from "react";
-import audioSrc from "../assets/GotJoy.mp3";
+// import audioSrc from "../assets/GotJoy.mp3";
+// import SwapIcon from "./Swap";
 
 const PageContent = () => {
   let allArtistNamesArr = [];
@@ -18,7 +19,7 @@ const PageContent = () => {
     recordingDetailsColumnData: [],
     yearShowRecordingCounts: [],
     nowPlayingBannerData: [],
-    audioSrc: audioSrc,
+    audioSrc: "https://filedn.com/lOuia4am7mYbBSKrGDAEztL/aimee%20mann/01%20Aimee%20Mann%20-%20Intro%20-%202018-Jan-30%20-%20Tin%20Pan%20-%20RichmondVA.wav",
   });
 
   useEffect(() => {
@@ -129,6 +130,7 @@ const PageContent = () => {
             setRecordingDetailsColumnData={setRecordingDetailsColumnData}
             setBandsSearched={setBandsSearched}
           ></BandsColumn>
+          {/* <SwapIcon></SwapIcon> */}
           <YearsColumn
             specificArtistRecordings={state.specificArtistRecordingArray}
             setShowsColumnData={setShowsColumnData}
@@ -146,7 +148,6 @@ const PageContent = () => {
             showsColumnData={state.showsColumnData}
             recordingDetailsColumnData={state.recordingDetailsColumnData}
             setNowPlayingBannerData={setNowPlayingBannerData}
-            audioSrc={state.audioSrc}
             setAudioSrc={setAudioSrc}
           ></RecordingDetailsColumn>
         </div>

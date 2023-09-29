@@ -14,10 +14,6 @@ const YearsColumn = ({
     setHighlightedYear(null);
     if (yearShowRecordingCounts.length == 1) {
       setTimeout(() => {
-        console.log(
-          "🚀 ~ file: YearsColumn.jsx:11 ~ specificArtistRecordings:",
-          "20" + specificArtistRecordings[0].Date.slice(-2)
-        );
         setHighlightedYear("20" + specificArtistRecordings[0].Date.slice(-2));
       }, 280);
 
@@ -62,8 +58,6 @@ const YearsColumn = ({
   }, [specificArtistRecordings]);
 
   const getSpecificShows = (event) => {
-    // do similar approach as in BandsColumn.jsx
-    // to grab index id from event.target
     let yearLiIndex = event.target.id;
     setHighlightedYear(yearLiIndex);
 
@@ -132,20 +126,18 @@ const YearsColumn = ({
   };
   return (
     <aside id="yearContainer">
-      <h1>Years: </h1>
+        <h1>Years: </h1>
       <ul>
         {yearShowRecordingCounts.length
           ? yearShowRecordingCounts.map((name, index) => (
-              <div key={index}  className="yearParentDiv">
-                <div style={highlightedYear == name.year ? divStyle : testDivStyle} className="yearSiblingDiv"></div>
-                <li
-                  key={index}
-                  onClick={getSpecificShows}
-                >
+              <div key={index} className="yearParentDiv">
+                <div
+                  style={highlightedYear == name.year ? divStyle : testDivStyle}
+                  className="yearSiblingDiv"
+                ></div>
+                <li key={index} onClick={getSpecificShows}>
                   <div id="specificYearListItem">
-                    <a id={name.year} >
-                      {name.year}
-                    </a>
+                    <a id={name.year}>{name.year}</a>
                     <div id="specificYearData">
                       <p id="numberOfShows">
                         {name.showCount > 1

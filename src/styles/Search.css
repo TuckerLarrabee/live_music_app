@@ -105,7 +105,7 @@
 }
 
 .search:focus-within .delete {
-    fill: rgb(39 155 188);
+    /* fill: rgb(39 155 188); */
     display: block;
     background-color: var(--clr-primary);
     font-size: 1rem;
@@ -120,3 +120,6 @@
     cursor: pointer;
 }
 
+.delete:hover {
+  fill: rgb(49, 172, 206);
+}

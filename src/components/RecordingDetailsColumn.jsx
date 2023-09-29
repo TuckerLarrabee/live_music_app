@@ -13,17 +13,17 @@ const RecordingDetailsColumn = ({
   }, [recordingDetailsColumnData]);
 
   const setNowPlaying = (event) => {
-    console.log(
-      "🚀 ~ file: RecordingDetailsColumn.jsx:19 ~ setNowPlaying ~ event:",
-      event.target
-    );
+    // console.log(
+    //   "🚀 ~ file: RecordingDetailsColumn.jsx:19 ~ setNowPlaying ~ event:",
+    //   event.target
+    // );
     let clickedRecording = recordingDetailsColumnData[event.target.id];
-    console.log(
-      "🚀 ~ file: RecordingDetailsColumn.jsx:20 ~ setNowPlaying ~ clickedRecording:",
-      clickedRecording
-    );
+    // console.log(
+    //   "🚀 ~ file: RecordingDetailsColumn.jsx:20 ~ setNowPlaying ~ clickedRecording:",
+    //   clickedRecording.AudioLink
+    // );
     setHighlightedRecording(event.target.id);
-    // setAudioSrc(audioSrc2);
+    setAudioSrc(clickedRecording.AudioLink);
     setNowPlayingBannerData(clickedRecording);
   };
 
