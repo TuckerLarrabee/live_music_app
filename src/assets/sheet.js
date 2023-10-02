@@ -4,13 +4,21 @@ const sheetName = "Sheet1";
 const qu = "Select A,B,C,D,E,F,G,H,I,J,K,L,M,N,O";
 const query = encodeURIComponent(qu);
 const url = `${baseURL}&sheet=${sheetName}&tq=${query}`;
+// const headers = new Headers()
+// headers.set('Access-Control-Allow-Origin', '*')
+// const request = new Request(url, {headers})
 
 let artistDataArr = [];
 
 const callGoogleSheets = async () => {
   try {
     // const fetch = await import("node-fetch");
-    const sheetData = await fetch(url);
+    const sheetData = await fetch(url)
+    //   method: 'GET',
+    //   headers: {
+    //     'Access-Control-Allow-Origin': '*',
+    //   }
+    // });
 
     if (!sheetData.ok) {
       throw new Error(`HTTP error! Status: ${sheetData.status}`);

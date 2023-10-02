@@ -2,6 +2,7 @@ import { useEffect, useState, setState } from "react";
 import "../styles/BandsColumn.css";
 import { countShows, countUniqueShowsByYear } from "../utils.js";
 import SearchInput from "./Search";
+import {divStyle, testDivStyle} from '../styles/commonStyles'
 
 const BandsColumn = ({
   bandNames,
@@ -85,19 +86,6 @@ const BandsColumn = ({
       setSpecificArtistRecordingsArray(specificArtistArray);
       setRecordingDetailsColumnData([]);
     }
-  };
-
-  const divStyle = {
-    background: "linear-gradient(to right, #615b5b, #615b5b)",
-    backgroundSize: "100% 100%",
-    backgroundRepeat: "no-repeat",
-    transition: "background-size 0.25s linear",
-  };
-  const testDivStyle = {
-    background: "linear-gradient(to right, #615b5b, #615b5b)",
-    backgroundSize: "0 100%",
-    backgroundRepeat: "no-repeat",
-    transition: "background-size 0.25s linear",
   };
 
   return (
