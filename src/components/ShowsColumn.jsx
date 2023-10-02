@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import "../styles/ShowsColumn.css";
+import { divStyle, testDivStyle } from "../styles/commonStyles";
 
 const ShowsColumn = ({
   showsColumnData,
@@ -9,7 +10,6 @@ const ShowsColumn = ({
   const [highlightedShow, setHighlightedShow] = useState(null);
 
   useEffect(() => {
-    // console.log("🚀 ~ file: ShowsColumn.jsx:9 ~ specificArtistRecordings:", specificArtistRecordings)
     setHighlightedShow(null);
     if (showsColumnData.length == 1 && specificArtistRecordings.length > 1) {
       setTimeout(() => {
@@ -25,27 +25,15 @@ const ShowsColumn = ({
   const getSpecificShowsRecordings = (event) => {
     let showDate = event.target.id;
     setHighlightedShow(showDate);
+
     let specificShowsForYearArr = [];
-    let clickedYear = event.target.textContent;
+
     specificArtistRecordings.forEach((yearData) => {
-      if (clickedYear == yearData.Date) {
+      if (showDate == yearData.Date) {
         specificShowsForYearArr.push(yearData);
       }
     });
     setRecordingDetailsColumnData(specificShowsForYearArr);
-  };
-
-  const divStyle = {
-    background: "linear-gradient(to right, #615b5b, #615b5b)",
-    backgroundSize: "100% 100%",
-    backgroundRepeat: "no-repeat",
-    transition: "background-size 0.25s linear",
-  };
-  const testDivStyle = {
-    background: "linear-gradient(to right, #615b5b, #615b5b)",
-    backgroundSize: "0 100%",
-    backgroundRepeat: "no-repeat",
-    transition: "background-size 0.25s linear",
   };
 
   return (
@@ -59,18 +47,25 @@ const ShowsColumn = ({
                   style={highlightedShow == name.date ? divStyle : testDivStyle}
                   className="showLiDiv"
                 ></div>
-                <li className="showLi" key={index}>
-                  <div id="specificShowListItem">
-                    <div id="dateLocationDiv">
-                      <a id={name.date} onClick={getSpecificShowsRecordings}>
-                        {name.date}
-                      </a>
-                      <div className="venueCityDiv">
-                        <p id="venue">{name.venue}</p>
-                        <p id="cityState">{name.city + ", " + name.state}</p>
+                <li
+                  className="showLi"
+                  key={index}
+                  id={name.date}
+                  onClick={getSpecificShowsRecordings}
+                >
+                  <div className="specificShowListItem" id={name.date}>
+                    <div className="dateLocationDiv" id={name.date}>
+                      <a id={name.date}>{name.date}</a>
+                      <div id={name.date} className="venueCityDiv">
+                        <p id={name.date} className="venue">
+                          {name.venue}
+                        </p>
+                        <p id={name.date} className="cityState">
+                          {name.city + ", " + name.state}
+                        </p>
                       </div>
                     </div>
-                    <div id="numberRecordingDiv">
+                    <div className="numberRecordingDiv" id={name.date}>
                       {name.recordingCount > 1
                         ? name.recordingCount + " recordings"
                         : name.recordingCount + " recording"}

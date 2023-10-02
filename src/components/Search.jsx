@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import fuzzysearch from "fuzzysearch";
 import "../styles/Search.css";
 
 const SearchInput = ({ filterBands, bandNames }) => {
   const [searchQuery, setSearchQuery] = useState("");
 
-  const searchedItems = bandNames.filter((item) =>
-    item.toLowerCase().startsWith(searchQuery)
+  const searchedItems = bandNames.filter((band) =>
+    fuzzysearch(searchQuery, band.toLowerCase())
   );
 
   useEffect(() => {

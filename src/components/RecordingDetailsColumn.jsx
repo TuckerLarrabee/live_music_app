@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "../styles/RecordingDetailsColumn.css";
+import { divStyle, testDivStyle, triangle, triangleClicked } from "../styles/commonStyles";
 
 const RecordingDetailsColumn = ({
   recordingDetailsColumnData,
@@ -13,50 +14,10 @@ const RecordingDetailsColumn = ({
   }, [recordingDetailsColumnData]);
 
   const setNowPlaying = (event) => {
-    // console.log(
-    //   "🚀 ~ file: RecordingDetailsColumn.jsx:19 ~ setNowPlaying ~ event:",
-    //   event.target
-    // );
     let clickedRecording = recordingDetailsColumnData[event.target.id];
-    // console.log(
-    //   "🚀 ~ file: RecordingDetailsColumn.jsx:20 ~ setNowPlaying ~ clickedRecording:",
-    //   clickedRecording.AudioLink
-    // );
     setHighlightedRecording(event.target.id);
     setAudioSrc(clickedRecording.AudioLink);
     setNowPlayingBannerData(clickedRecording);
-  };
-
-  const divStyle = {
-    background: "linear-gradient(to right, #615b5b, #615b5b)",
-    backgroundSize: "100% 100%",
-    backgroundRepeat: "no-repeat",
-    transition: "background-size 0.25s linear",
-  };
-  const testDivStyle = {
-    background: "linear-gradient(to right, #615b5b, #615b5b)",
-    backgroundSize: "0 100%",
-    backgroundRepeat: "no-repeat",
-    transition: "background-size 0.15s linear",
-  };
-
-  const triangle = {
-    width: 0,
-    height: 0,
-    outline: "none",
-    boxShadow: "none",
-    borderTop: "20px solid transparent",
-    borderBottom: "20px solid transparent",
-    borderLeft: "25px solid rgb(39 155 188)",
-  };
-  const triangleClicked = {
-    width: 0,
-    height: 0,
-    outline: "none",
-    boxShadow: "none",
-    borderTop: "20px solid transparent",
-    borderBottom: "20px solid transparent",
-    borderLeft: "25px solid rgb(22, 148, 11)",
   };
 
   return (
@@ -71,9 +32,7 @@ const RecordingDetailsColumn = ({
                 </div>
                 <div className="recordingParentDiv">
                   <div
-                    style={
-                      highlightedRecording == index ? divStyle : testDivStyle
-                    }
+                    style={highlightedRecording == index ? divStyle : testDivStyle}
                     className="recordingLiDiv"
                   ></div>
                   <div className="detailsParentDiv" key={index}>
@@ -89,11 +48,7 @@ const RecordingDetailsColumn = ({
                         <div className="dateAndPlayDiv">
                           <p>Date: {name.Date} </p>
                           <button
-                            style={
-                              highlightedRecording == index
-                                ? triangleClicked
-                                : triangle
-                            }
+                            style={highlightedRecording == index? triangleClicked : triangle}
                             onClick={setNowPlaying}
                             id={index}
                             className="triangle"
@@ -103,15 +58,12 @@ const RecordingDetailsColumn = ({
                       <div id="setlistDiv">
                         <p>Setlist:</p>
                         <div>
-                          <a
-                            style={{ textDecoration: "none" }}
-                            target="_blank"
-                            href={name.setlistFMlink}
-                          >
+                          <a style={{ textDecoration: "none" }} target="_blank" href={name.setlistFMlink}>
                             {name.setlistFMlink}
                           </a>
                         </div>
                       </div>
+                      <div id="paddingDiv"></div>
                     </div>
                   </div>
                 </div>
