@@ -5,9 +5,7 @@ import YearsColumn from "./YearsColumn";
 import NowPlaying from "./NowPlaying";
 import "../styles/PageContent.css";
 import { callGoogleSheets } from "../assets/sheet";
-import { useEffect, useState, useRef } from "react";
-// import audioSrc from "../assets/GotJoy.mp3";
-// import SwapIcon from "./Swap";
+import { useEffect, useState } from "react";
 
 const PageContent = () => {
   let allArtistNamesArr = [];
@@ -42,6 +40,7 @@ const PageContent = () => {
 
       let uniqueArtistNameSet = new Set(allArtistNamesArr);
       let uniqueArtistNameArr = Array.from(uniqueArtistNameSet);
+      uniqueArtistNameArr.sort()
       setState((prevState) => ({
         ...prevState,
         artistNamesArray: uniqueArtistNameArr,
@@ -111,6 +110,26 @@ const PageContent = () => {
       artistNamesArray: searchedItems,
     }));
   };
+
+  /* OPTIMIZE / REDUCE REDUNDANCY 
+  // 
+  // const updateState = (key, value) => {
+  //   setState((prevState) => ({
+  //     ...prevState,
+  //     [key]: value,
+  //   }));
+  // };
+  
+  // Usage examples:
+  
+  // updateState("specificArtistRecordingArray", artistRecordings);
+  // updateState("showsColumnData", shows);
+  // updateState("yearShowRecordingCounts", yearDataArr);
+  // updateState("recordingDetailsColumnData", recordingDetailsArr);
+  // updateState("nowPlayingBannerData", selectedRecording);
+  // updateState("audioSrc", audio);
+  // updateState("artistNamesArray", searchedItems);
+  */
 
   return (
     <>

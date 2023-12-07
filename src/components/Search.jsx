@@ -8,7 +8,7 @@ const SearchInput = ({ filterBands, bandNames }) => {
   const [searchQuery, setSearchQuery] = useState("");
 
   const searchedItems = bandNames.filter((band) =>
-    fuzzysearch(searchQuery, band.toLowerCase())
+  fuzzysearch(searchQuery, band.toLowerCase())
   );
 
   useEffect(() => {

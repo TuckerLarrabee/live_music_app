@@ -50,6 +50,10 @@ audio::-webkit-media-controls-panel {
   padding: 0px;
 }
 
+audio::-webkit-media-controls div[pseudo="-internal-media-controls-overflow-menu-list" i].closed > label {
+  display: none;
+}
+
 .artistName {
   text-align: left;
 }
@@ -57,7 +61,6 @@ audio::-webkit-media-controls-panel {
 .concertDetails {
   display: flex;
   flex: 1.5;
-  /* justify-content: space-around; */
   flex-direction: column;
   text-align: right;
   align-items: flex-end;
