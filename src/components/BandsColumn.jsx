@@ -57,7 +57,8 @@ const BandsColumn = ({
     let yearRecordingCount = countShows(yearCountArr);
     let yearDataArr = [];
     let uniqueShows = countUniqueShowsByYear(showCountArr);
-
+    
+    
     for (let [key, value] of Object.entries(yearRecordingCount)) {
       for (let yearKey in uniqueShows) {
         if (yearKey == key) {
@@ -71,12 +72,28 @@ const BandsColumn = ({
             recordingCount: value,
             showCount: uniqueShows[yearKey],
           };
-
+          
           yearDataArr.push(yearObj);
         }
       }
     }
-
+    let previousCenturyArr = []
+    let currentCenturyArr= []
+    
+    yearDataArr.forEach(item => {
+      if (item.year < 2000) {
+        previousCenturyArr.push(item)
+      }
+      else {
+        currentCenturyArr.push(item)
+      }
+    })
+    
+    console.log("🚀 ~ file: BandsColumn.jsx:81 ~ getSpecificArtistYears ~ previousCenturyArr:", previousCenturyArr)
+    console.log("🚀 ~ file: BandsColumn.jsx:83 ~ getSpecificArtistYears ~ currentCenturyArr:", currentCenturyArr)
+    yearDataArr = previousCenturyArr.concat(currentCenturyArr)
+    console.log("🚀 ~ file: BandsColumn.jsx:95 ~ getSpecificArtistYears ~ yearDataArr:", yearDataArr)
+    
     if (yearCountSet.size === 1 && yearDataArr[0].showCount === 1) {
       setYearShowRecordingCounts(yearDataArr);
       setSpecificArtistRecordingsArray(specificArtistArray);
