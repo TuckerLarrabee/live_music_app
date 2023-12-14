@@ -13,8 +13,14 @@ const YearsColumn = ({
   useEffect(() => {
     setHighlightedYear(null);
     if (yearShowRecordingCounts.length == 1) {
+      console.log(specificArtistRecordings[0].Date.slice(-2))
       setTimeout(() => {
-        setHighlightedYear("20" + specificArtistRecordings[0].Date.slice(-2));
+        if (specificArtistRecordings[0].Date.split('/')[2][0] == 7 || specificArtistRecordings[0].Date.split('/')[2][0] == 8 || specificArtistRecordings[0].Date.split('/')[2][0] == 9) {
+          console.log("Hello world")
+          setHighlightedYear("19" + specificArtistRecordings[0].Date.slice(-2))
+        } else {
+          setHighlightedYear("20" + specificArtistRecordings[0].Date.slice(-2));
+        }
       }, 280);
 
       let specificShowDateArr = [];
