@@ -37,22 +37,22 @@
   gap: 3.5px;
 }
 
-audio {
+audio, video {
   width: 600px;
   max-height: 28px;
 }
 
-audio::-webkit-media-controls-enclosure {
+audio::-webkit-media-controls-enclosure, video::-webkit-media-controls-enclosure {
   background-color: #d4cbbf;
 }
 
-audio::-webkit-media-controls-panel {
+audio::-webkit-media-controls-panel, video::-webkit-media-controls-panel {
   padding: 0px;
 }
-
+/* 
 audio::-webkit-media-controls div[pseudo="-internal-media-controls-overflow-menu-list" i].closed > label {
   display: none;
-}
+} */
 
 .artistName {
   text-align: left;

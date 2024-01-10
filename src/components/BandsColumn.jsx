@@ -88,11 +88,7 @@ const BandsColumn = ({
         currentCenturyArr.push(item)
       }
     })
-    
-    console.log("🚀 ~ file: BandsColumn.jsx:81 ~ getSpecificArtistYears ~ previousCenturyArr:", previousCenturyArr)
-    console.log("🚀 ~ file: BandsColumn.jsx:83 ~ getSpecificArtistYears ~ currentCenturyArr:", currentCenturyArr)
     yearDataArr = previousCenturyArr.concat(currentCenturyArr)
-    console.log("🚀 ~ file: BandsColumn.jsx:95 ~ getSpecificArtistYears ~ yearDataArr:", yearDataArr)
     
     if (yearCountSet.size === 1 && yearDataArr[0].showCount === 1) {
       setYearShowRecordingCounts(yearDataArr);
