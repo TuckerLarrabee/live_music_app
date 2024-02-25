@@ -1,17 +1,31 @@
 export const divStyle = {
-    background: "linear-gradient(to right, #615b5b, #615b5b)",
+    backgroundImage: "linear-gradient(to right, #615b5b, #615b5b)",
     backgroundSize: "100% 100%",
     backgroundRepeat: "no-repeat",
     transition: "background-size 0.25s linear",
   };
 
-export const testDivStyle = {
-    background: "linear-gradient(to right, #615b5b, #615b5b)",
+  export const testDivStyle = {
+    backgroundImage: "linear-gradient(to right, #615b5b, #615b5b)",
     backgroundSize: "0 100%",
     backgroundRepeat: "no-repeat",
     transition: "background-size 0.15s linear",
   };
 
+  export const divPassiveStyle = {
+    backgroundImage: "linear-gradient(to right, #c8c8c8, #c8c8c8)",
+    backgroundSize: "100% 100%",
+    backgroundRepeat: "no-repeat",
+    transition: "background-size 0.25s linear",
+  };
+  
+  export const testDivPassiveStyle = {
+      backgroundImage: "linear-gradient(to right, #c8c8c8, #c8c8c8)",
+      backgroundSize: "0% 100%",
+      backgroundRepeat: "no-repeat",
+      transition: "background-size 0.15s linear",
+    };
+  
 export const triangle = {
     width: 0,
     height: 0,

@@ -52,7 +52,6 @@ const callGoogleSheets = async () => {
       });
     });
 
-    console.log("🚀 ~ file: sheet.js:59 ~ callGoogleSheets ~ artistDataArr:", artistDataArr)
     return artistDataArr;
   } catch (error) {
     console.error("Error fetching Google Sheets data:", error);

@@ -1,8 +1,8 @@
-import { useEffect, useState, setState } from "react";
+import { useEffect, useState, setState, useRef } from "react";
 import "../styles/BandsColumn.css";
 import { countShows, countUniqueShowsByYear } from "../utils.js";
 import SearchInput from "./Search";
-import {divStyle, testDivStyle} from '../styles/commonStyles'
+import {divStyle, testDivStyle, divPassiveStyle, testDivPassiveStyle} from '../styles/commonStyles'
 
 const BandsColumn = ({
   bandNames,
@@ -11,27 +11,44 @@ const BandsColumn = ({
   setYearShowRecordingCounts,
   setRecordingDetailsColumnData,
   setBandsSearched,
+  nowPlayingBannerData
 }) => {
   const [highlightedBand, setHighlightedBand] = useState(null);
+  const [testState, setTestState] = useState(null);
+  const currentClick = useRef(null)
+  const nowPlayingDiv = useRef(null)
   const [searchedArtists, setSearchedArtists] = useState([]);
 
   useEffect(() => {
     setSearchedArtists(bandNames);
   }, [bandNames]);
 
-  useEffect(() => {}, [searchedArtists]);
-
+  useEffect(() => {
+    nowPlayingDiv.current = currentClick.current
+    setTestState(nowPlayingDiv.current)
+  }, [nowPlayingBannerData]);
+  
   const filterBands = (searchedItems) => {
     setSearchedArtists(searchedItems);
   };
-
+  
   const getSpecificArtist = (event) => {
     let bandLiIndex = event.target.id;
     setHighlightedBand(bandLiIndex);
+    
+    
+    console.log("EVENT TARGET", event.target.id)
+    currentClick.current = bandLiIndex
 
-    let specificArtistArray = [];
+    if (nowPlayingDiv.current != bandLiIndex && nowPlayingBannerData) {
+      console.log("🚀 ~ getSpecificArtist ~ bandLi:", bandLiIndex)
+      console.log("🚀 ~ getSpecificArtist ~ nowPlayingDiv.current.style:", nowPlayingDiv.current)
+      setTestState(divStyle)
+      console.log("Hello")
+    }
+    
     let clickedArtist = event.target.textContent;
-
+    let specificArtistArray = [];
     sheetData.forEach((artist) => {
       if (clickedArtist === artist.Band) {
         specificArtistArray.push(artist);
@@ -101,6 +118,12 @@ const BandsColumn = ({
     }
   };
 
+  // const changeStyle = () => {
+  //   console.log
+  // }
+
+  // const style = changeStyle()
+
   return (
     <aside id="bandContainer">
       <div id="headerDiv">
@@ -121,7 +144,7 @@ const BandsColumn = ({
           >
             <div
               className="bandLiDiv"
-              style={highlightedBand == name ? divStyle : testDivStyle}
+              style={highlightedBand == name ? divStyle : (nowPlayingDiv.current == name ? divPassiveStyle : testDivStyle) }
             ></div>
             <li className="bandLi" key={index}>
               <a id={name}>{name}</a>

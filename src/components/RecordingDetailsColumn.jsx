@@ -15,6 +15,7 @@ const RecordingDetailsColumn = ({
 
   const setNowPlaying = (event) => {
     let clickedRecording = recordingDetailsColumnData[event.target.id];
+    console.log("🚀 ~ setNowPlaying ~ clickedRecording:", clickedRecording)
     setHighlightedRecording(event.target.id);
     setAudioSrc(clickedRecording.AudioLink);
     setNowPlayingBannerData(clickedRecording);

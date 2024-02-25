@@ -40,6 +40,10 @@ ul {
 
 .bandLiDiv {
   width: 3%;
+  /* background: "linear-gradient(to right, #615b5b, #615b5b)";
+  background-size: "0 100%";
+  background-repeat: "no-repeat";
+  transition: "background-size 0.15s linear", */
 }
 
 .bandLi {

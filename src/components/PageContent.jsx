@@ -148,6 +148,7 @@ const PageContent = () => {
             setYearShowRecordingCounts={setYearShowRecordingCounts}
             setRecordingDetailsColumnData={setRecordingDetailsColumnData}
             setBandsSearched={setBandsSearched}
+            nowPlayingBannerData={state.nowPlayingBannerData}
           ></BandsColumn>
           {/* <SwapIcon></SwapIcon> */}
           <YearsColumn
