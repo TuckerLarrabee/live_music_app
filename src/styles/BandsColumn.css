@@ -55,3 +55,18 @@ ul {
   display: flex;
   align-items: center;
 }
+
+#featured, #bands {
+  --tw-bg-opacity: 1;
+    background-color: rgb(240 239 244 / var(--tw-bg-opacity));
+    --tw-text-opacity: 1;
+    color: rgb(107 114 128 / var(--tw-text-opacity));
+    font-size: .85rem;
+    line-height: 1rem;
+    padding: 0.35rem;
+    vertical-align: middle;
+}
+
+.search:focus-within #featured {
+  display: none;
+}

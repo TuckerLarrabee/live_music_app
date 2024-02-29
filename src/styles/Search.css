@@ -80,6 +80,10 @@
   box-shadow: 0 0 1px rgba(0, 0, 0, 0.15);
 }
 
+.search:focus #featured {
+  display: none;
+}
+
 .delete, .deleteBtn {
     display: none;
     outline: rgb(39 155 188);

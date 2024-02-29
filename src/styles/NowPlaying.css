@@ -22,10 +22,11 @@
 .audioInfo {
   display: flex;
   flex-direction: row;
-  width: 350px;
+  width: 400px;
   line-height: 0.93;
   justify-content: space-between;
   gap: 10px;
+  padding-left: 1.2%;
 }
 
 #nameVenueDiv {
@@ -56,13 +57,156 @@ audio::-webkit-media-controls div[pseudo="-internal-media-controls-overflow-menu
 
 .artistName {
   text-align: left;
+  /* padding-top: 2px; */
 }
 
 .concertDetails {
   display: flex;
-  flex: 1.5;
+  /* flex: 1.5; */
   flex-direction: column;
   text-align: right;
   align-items: flex-end;
   padding-top: 5px;
+}
+
+#contact {
+  position: absolute;
+  right: 8px;
+  top: 3px
+}
+/* 
+<!-- HTML !-->
+<button class="button-48" role="button"><span class="text">Button 48</span></button> */
+
+/* CSS */
+.button-48 {
+  position: absolute;
+  border-radius: 0px !important;
+  right: 8px;
+  top: 11.5px;
+  appearance: none;
+  background-color: #d4cbbf;
+  border-width: 0;
+  box-sizing: border-box;
+  color: #000000;
+  cursor: pointer;
+  display: inline-block;
+  /* font-family: Clarkson,Helvetica,sans-serif; */
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1em;
+  margin: 0;
+  opacity: 1;
+  outline: 0;
+  padding: 1.1em 1.6em;
+  /* position: relative; */
+  text-align: center;
+  text-decoration: none;
+  text-rendering: geometricprecision;
+  transition: opacity 300ms cubic-bezier(.694, 0, 0.335, 1),background-color 100ms cubic-bezier(.694, 0, 0.335, 1),color 100ms cubic-bezier(.694, 0, 0.335, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: baseline;
+  white-space: nowrap;
+}
+
+.button-48:before {
+  animation: opacityFallbackOut .5s step-end forwards;
+  backface-visibility: hidden;
+  background-color: rgb(39 155 188);
+  color: whitesmoke;
+  clip-path: polygon(-1% 0, 0 0, -25% 100%, -1% 100%);
+  content: "";
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  transform: translateZ(0);
+  transition: clip-path .5s cubic-bezier(.165, 0.84, 0.44, 1), -webkit-clip-path .5s cubic-bezier(.165, 0.84, 0.44, 1);
+  width: 100%;
+}
+
+.button-48:hover:before {
+  animation: opacityFallbackIn 0s step-start forwards;
+  clip-path: polygon(0 0, 101% 0, 101% 101%, 0 101%);
+  color: whitesmoke;
+}
+
+.button-48:hover {
+  color: white;
+}
+
+.button-48:after {
+  background-color: #FFFFFF;
+}
+
+.button-48 span {
+  z-index: 1;
+  position: relative;
+}
+.button-48 span:before {
+  color: whitesmoke;
+}
+
+
+@media (max-width: 3900px) {
+  /* Your styles for screens less than 700px width */
+  /* For example: */
+  .audioInfo {
+    padding-left: 0.5%;
+  }
+}
+@media (max-width: 3400px) {
+  /* Your styles for screens less than 700px width */
+  /* For example: */
+  .audioInfo {
+    padding-left: 0.6%;
+  }
+}
+
+@media (max-width: 2500px) {
+  /* Your styles for screens less than 700px width */
+  /* For example: */
+  .audioInfo {
+    padding-left: 0.8%;
+  }
+}
+@media (max-width: 2300px) {
+  /* Your styles for screens less than 700px width */
+  /* For example: */
+  .audioInfo {
+    padding-left: .8%;
+  }
+}
+
+@media (max-width: 2000px) {
+  /* Your styles for screens less than 700px width */
+  /* For example: */
+  .audioInfo {
+    padding-left: 1.0%;
+  }
+}
+@media (max-width: 1500px) {
+  /* Your styles for screens less than 700px width */
+  /* For example: */
+  .audioInfo {
+    padding-left: 1.3%;
+  }
+}
+
+@media (max-width: 1200px) {
+  /* Your styles for screens less than 700px width */
+  /* For example: */
+  .audioInfo {
+    padding-left: 1.7%;
+  }
+}
+@media (max-width: 1000px) {
+  /* Your styles for screens less than 700px width */
+  /* For example: */
+  .audioInfo {
+    padding-left: 2.0%;
+  }
 }

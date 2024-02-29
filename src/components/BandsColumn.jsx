@@ -1,5 +1,6 @@
 import { useEffect, useState, setState, useRef } from "react";
 import "../styles/BandsColumn.css";
+import "../styles/Search.css";
 import { countShows, countUniqueShowsByYear } from "../utils.js";
 import SearchInput from "./Search";
 import {divStyle, testDivStyle, divPassiveStyle, testDivPassiveStyle} from '../styles/commonStyles'
@@ -11,19 +12,46 @@ const BandsColumn = ({
   setYearShowRecordingCounts,
   setRecordingDetailsColumnData,
   setBandsSearched,
-  nowPlayingBannerData
+  nowPlayingBannerData,
+  setFeaturedDisplay,
+  inputFocused
 }) => {
   const [highlightedBand, setHighlightedBand] = useState(null);
   const [testState, setTestState] = useState(null);
+  const [randomArtistArr, setRandomArtistArr] = useState([]);
   const currentClick = useRef(null)
   const nowPlayingDiv = useRef(null)
   const [searchedArtists, setSearchedArtists] = useState([]);
+  const [filteredSheetData, setFilteredSheetData] = useState(sheetData)
 
   useEffect(() => {
     setSearchedArtists(bandNames);
   }, [bandNames]);
 
+   
+  
+  let getRandom = () => {
+    let randArtistArr = []
+    let randomIndex = Math.floor(Math.random() * sheetData.length)
+    let randArtist = sheetData[randomIndex]
+    let randomIndexTwo = Math.floor(Math.random() * sheetData.length)
+    let randArtistTwo = sheetData[randomIndexTwo]
+    if (randArtist && randArtistTwo) {
+      randArtistArr.push(randArtist.Band, randArtistTwo.Band)
+      filteredSheetData.splice(randomIndex, randomIndex +1)
+      filteredSheetData.splice(randomIndexTwo, randomIndexTwo +1)
+    }
+    setRandomArtistArr(randArtistArr)
+    setFilteredSheetData(filteredSheetData)
+    }
+    
+    useEffect(() => {
+
+      getRandom()
+    },[sheetData])
+
   useEffect(() => {
+    // console.log(randomArtist)
     nowPlayingDiv.current = currentClick.current
     setTestState(nowPlayingDiv.current)
   }, [nowPlayingBannerData]);
@@ -37,14 +65,11 @@ const BandsColumn = ({
     setHighlightedBand(bandLiIndex);
     
     
-    console.log("EVENT TARGET", event.target.id)
+    // console.log("EVENT TARGET", event.target.id)
     currentClick.current = bandLiIndex
 
     if (nowPlayingDiv.current != bandLiIndex && nowPlayingBannerData) {
-      console.log("🚀 ~ getSpecificArtist ~ bandLi:", bandLiIndex)
-      console.log("🚀 ~ getSpecificArtist ~ nowPlayingDiv.current.style:", nowPlayingDiv.current)
       setTestState(divStyle)
-      console.log("Hello")
     }
     
     let clickedArtist = event.target.textContent;
@@ -118,16 +143,11 @@ const BandsColumn = ({
     }
   };
 
-  // const changeStyle = () => {
-  //   console.log
-  // }
-
-  // const style = changeStyle()
-
   return (
     <aside id="bandContainer">
       <div id="headerDiv">
         <SearchInput
+          setFeaturedDisplay={setFeaturedDisplay}
           bandNames={bandNames}
           setBandsSearched={setBandsSearched}
           filterBands={filterBands}
@@ -135,6 +155,42 @@ const BandsColumn = ({
         <h1 id="bandHeaderText"> Bands:</h1>
       </div>
       <ul id="bandUl">
+        <div id="featured">Featured</div>
+        {inputFocused != true && randomArtistArr.map((name, index) => (
+          <div key={index}>
+            <div
+              key={index}
+              onClick={getSpecificArtist}
+              id={name}
+              className="bandParentDiv"
+              >
+              <div
+                className="bandLiDiv"
+                style={highlightedBand == name ? divStyle : (nowPlayingDiv.current == name ? divPassiveStyle : testDivStyle) }
+                ></div>
+              <li className="bandLi" key={index}>
+                <a id={name}>{name}</a>
+              </li>
+            </div>
+          </div>
+        ))}
+        {/* {searchedArtists.slice(15,17).map((name, index) => (
+          <div
+            key={index}
+            onClick={getSpecificArtist}
+            id={name}
+            className="bandParentDiv"
+          >
+            <div
+              className="bandLiDiv"
+              style={highlightedBand == name ? divStyle : (nowPlayingDiv.current == name ? divPassiveStyle : testDivStyle) }
+            ></div>
+            <li className="bandLi" key={index}>
+              <a id={name}>{name}</a>
+            </li>
+          </div>
+        ))} */}
+        <div id="bands">Bands</div>
         {searchedArtists.map((name, index) => (
           <div
             key={index}

@@ -1,15 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import fuzzysearch from "fuzzysearch";
 import "../styles/Search.css";
 
-const SearchInput = ({ filterBands, bandNames }) => {
+const SearchInput = ({ filterBands, bandNames, setFeaturedDisplay }) => {
   const [searchQuery, setSearchQuery] = useState("");
-
   const searchedItems = bandNames.filter((band) =>
   fuzzysearch(searchQuery, band.toLowerCase())
   );
+  const inputRef = useRef(null)
+  const handleFocus = () => {
+    setFeaturedDisplay(true);
+  };
+
+  const handleBlur = () => {
+    setFeaturedDisplay(false);
+  };
 
   useEffect(() => {
     if (!searchQuery.length) {
@@ -33,8 +40,11 @@ const SearchInput = ({ filterBands, bandNames }) => {
     <div className="content">
       <div className="search">
         <input
+          onFocus={handleFocus}
+          onBlur={handleBlur}
           onChange={handleInputChange}
           type="text"
+          ref={inputRef}
           value={searchQuery}
           className="search__input"
           aria-label="search"

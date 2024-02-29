@@ -17,6 +17,7 @@ const PageContent = () => {
     recordingDetailsColumnData: [],
     yearShowRecordingCounts: [],
     nowPlayingBannerData: [],
+    inputFocused: null,
     audioSrc: "https://filedn.com/lOuia4am7mYbBSKrGDAEztL/aimee%20mann/01%20Aimee%20Mann%20-%20Intro%20-%202018-Jan-30%20-%20Tin%20Pan%20-%20RichmondVA.wav",
   });
 
@@ -30,7 +31,10 @@ const PageContent = () => {
       }));
     };
     fetchData();
+    
   }, []);
+
+  
 
   useEffect(() => {
     const getAllBandNames = async () => {
@@ -110,6 +114,12 @@ const PageContent = () => {
       artistNamesArray: searchedItems,
     }));
   };
+  const setFeaturedDisplay = (bool) => {
+    setState((prevState) => ({
+      ...prevState,
+      inputFocused: bool,
+    }));
+  };
 
   /* OPTIMIZE / REDUCE REDUNDANCY 
   // 
@@ -141,6 +151,7 @@ const PageContent = () => {
       <section id="content">
         <div id="dataContainer">
           <BandsColumn
+            setFeaturedDisplay={setFeaturedDisplay}
             bandNames={state.artistNamesArray}
             sheetData={state.sheetData}
             setSpecificArtistRecordingsArray={setSpecificArtistRecordingsArray}
@@ -149,6 +160,7 @@ const PageContent = () => {
             setRecordingDetailsColumnData={setRecordingDetailsColumnData}
             setBandsSearched={setBandsSearched}
             nowPlayingBannerData={state.nowPlayingBannerData}
+            inputFocused={state.inputFocused}
           ></BandsColumn>
           {/* <SwapIcon></SwapIcon> */}
           <YearsColumn

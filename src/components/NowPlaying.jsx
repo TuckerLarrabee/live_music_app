@@ -42,7 +42,7 @@ const NowPlaying = ({ nowPlayingBannerData, audioSrc }) => {
         <div className="audioInfo">
           <div id="nameVenueDiv">
             <h2 className="artistName">
-              {state.artistName ? state.artistName : "Aimee Mann"}
+              {state.artistName ? (state.artistName.length > 25 ? state.artistName.substring(0,22) + '...' : state.artistName) : "Aimee Mann"}
             </h2>
             <p style={{ zIndex: 999 }}>
               {state.venue ? state.venue : "Tin Pan"}
@@ -53,6 +53,9 @@ const NowPlaying = ({ nowPlayingBannerData, audioSrc }) => {
             {/* <p style={{ zIndex: 999 }}>{state.comments}</p> */}
           </div>
         </div>
+        {/* <div>
+          test
+        </div> */}
         <ReactPlayer
           ref={playerRef}
           style={{ width: 600, maxHeight: 28 }}
@@ -62,6 +65,8 @@ const NowPlaying = ({ nowPlayingBannerData, audioSrc }) => {
           playing={state.playing}
         ></ReactPlayer>
       </div>
+      <button className="button-48" role="button"><span className="text">Contact</span></button>
+      
     </div>
   );
 };
