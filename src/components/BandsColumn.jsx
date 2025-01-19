@@ -79,10 +79,12 @@ const BandsColumn = ({
         specificArtistArray.push(artist);
       }
     });
+    // console.log("🚀 ~ sheetData.forEach ~ specificArtistArray:", specificArtistArray)
     getSpecificArtistYears(specificArtistArray);
   };
 
   const getSpecificArtistYears = (specificArtistArray) => {
+    // console.log("🚀 ~ getSpecificArtistYears ~ specificArtistArray:", specificArtistArray)
     let currentYear = new Date().getFullYear().toString().slice(-2);
 
     let showCountArr = [];
@@ -95,10 +97,13 @@ const BandsColumn = ({
       yearCountArr.push(show.slice(-2));
     });
     let yearCountSet = new Set(yearCountArr);
+    // console.log("🚀 ~ getSpecificArtistYears ~ yearCountSet:", yearCountSet)
 
     let yearRecordingCount = countShows(yearCountArr);
+    // console.log("🚀 ~ getSpecificArtistYears ~ yearRecordingCount:", yearRecordingCount)
     let yearDataArr = [];
     let uniqueShows = countUniqueShowsByYear(showCountArr);
+    // console.log("🚀 ~ getSpecificArtistYears ~ uniqueShows:", uniqueShows)
     
     
     for (let [key, value] of Object.entries(yearRecordingCount)) {
@@ -130,7 +135,12 @@ const BandsColumn = ({
         currentCenturyArr.push(item)
       }
     })
+    console.log("🚀 ~ getSpecificArtistYears ~ previousCenturyArr:", previousCenturyArr)
+    console.log("🚀 ~ getSpecificArtistYears ~ currentCenturyArr:", currentCenturyArr)
     yearDataArr = previousCenturyArr.concat(currentCenturyArr)
+    yearDataArr.sort((a, b) => new Date(b.year) - new Date(a.year));
+    console.log("🚀 ~ YOOO ~ yearDataArr:", yearDataArr)
+    
     
     if (yearCountSet.size === 1 && yearDataArr[0].showCount === 1) {
       setYearShowRecordingCounts(yearDataArr);
