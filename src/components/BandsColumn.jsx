@@ -19,6 +19,8 @@ const BandsColumn = ({
   const [highlightedBand, setHighlightedBand] = useState(null);
   const [testState, setTestState] = useState(null);
   const [randomArtistArr, setRandomArtistArr] = useState([]);
+  const [recentlyFeaturedArtistArr, setRecentlyFeaturedArtistArr] = useState([]);
+
   const currentClick = useRef(null)
   const nowPlayingDiv = useRef(null)
   const [searchedArtists, setSearchedArtists] = useState([]);
@@ -30,24 +32,24 @@ const BandsColumn = ({
 
    
   
-  let getRandom = () => {
-    let randArtistArr = []
-    let randomIndex = Math.floor(Math.random() * sheetData.length)
-    let randArtist = sheetData[randomIndex]
-    let randomIndexTwo = Math.floor(Math.random() * sheetData.length)
-    let randArtistTwo = sheetData[randomIndexTwo]
-    if (randArtist && randArtistTwo) {
-      randArtistArr.push(randArtist.Band, randArtistTwo.Band)
-      filteredSheetData.splice(randomIndex, randomIndex +1)
-      filteredSheetData.splice(randomIndexTwo, randomIndexTwo +1)
+  let getRecent = () => {
+    let recentArtistArr = []
+    sheetData.forEach((artist, index)=> {
+      if (artist.RecentlyFeatured == "x") {
+        recentArtistArr.push(artist.Band)
+      }
+    })
+    if (recentArtistArr.length > 1) {
+
     }
-    setRandomArtistArr(randArtistArr)
+    
+    setRecentlyFeaturedArtistArr(recentArtistArr)
     setFilteredSheetData(filteredSheetData)
     }
     
     useEffect(() => {
 
-      getRandom()
+      getRecent()
     },[sheetData])
 
   useEffect(() => {
@@ -135,12 +137,9 @@ const BandsColumn = ({
         currentCenturyArr.push(item)
       }
     })
-    console.log("🚀 ~ getSpecificArtistYears ~ previousCenturyArr:", previousCenturyArr)
-    console.log("🚀 ~ getSpecificArtistYears ~ currentCenturyArr:", currentCenturyArr)
     yearDataArr = previousCenturyArr.concat(currentCenturyArr)
     yearDataArr.sort((a, b) => new Date(b.year) - new Date(a.year));
-    console.log("🚀 ~ YOOO ~ yearDataArr:", yearDataArr)
-    
+
     
     if (yearCountSet.size === 1 && yearDataArr[0].showCount === 1) {
       setYearShowRecordingCounts(yearDataArr);
@@ -165,8 +164,8 @@ const BandsColumn = ({
         <h1 id="bandHeaderText"> Bands:</h1>
       </div>
       <ul id="bandUl">
-        <div id="featured">Featured</div>
-        {inputFocused != true && randomArtistArr.map((name, index) => (
+        <div id="featured">Recently Featured</div>
+        {inputFocused != true && recentlyFeaturedArtistArr.map((name, index) => (
           <div key={index}>
             <div
               key={index}

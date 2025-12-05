@@ -36,6 +36,8 @@ ul {
   display: flex;
   border-bottom: 1px solid #eaeaea;
   cursor: pointer;
+  min-height: 46px;
+  /* align-items: center; */
 }
 
 .bandLiDiv {
@@ -48,10 +50,12 @@ ul {
 
 .bandLi {
   padding-left: 7px;
+  display: flex;
+  align-items: center;
 }
 
 .bandLi a {
-  height: 38px;
+  /* height: 38px; */
   display: flex;
   align-items: center;
 }
@@ -70,3 +74,4 @@ ul {
 .search:focus-within #featured {
   display: none;
 }
+

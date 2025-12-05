@@ -65,7 +65,7 @@ const NowPlaying = ({ nowPlayingBannerData, audioSrc }) => {
           playing={state.playing}
         ></ReactPlayer>
       </div>
-      <button className="button-48" role="button"><span className="text">Contact</span></button>
+      {/* <button className="button-48" role="button"><span className="text">Contact</span></button> */}
       
     </div>
   );

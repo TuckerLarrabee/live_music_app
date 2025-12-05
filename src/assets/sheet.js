@@ -12,13 +12,7 @@ let artistDataArr = [];
 
 const callGoogleSheets = async () => {
   try {
-    // const fetch = await import("node-fetch");
     const sheetData = await fetch(url)
-    //   method: 'GET',
-    //   headers: {
-    //     'Access-Control-Allow-Origin': '*',
-    //   }
-    // });
 
     if (!sheetData.ok) {
       throw new Error(`HTTP error! Status: ${sheetData.status}`);
@@ -29,9 +23,12 @@ const callGoogleSheets = async () => {
     const sheetDataJsObj = sheetDataText.substr(47).slice(0, -2);
     const sheetDataJSONObj = JSON.parse(sheetDataJsObj.replace(/\\/g, ""));
 
+    // console.log("test", sheetDataJSONObj)
+
     artistDataArr.length = 0;
     sheetDataJSONObj.table.rows.forEach((data) => {
       convertNullToEmptyString(data.c);
+      
 
       artistDataArr.push({
         Date: data.c[0].f,
@@ -48,10 +45,11 @@ const callGoogleSheets = async () => {
         Comments: data.c[11].v,
         setlistFMlink: data.c[12].v,
         image1: data.c[13].v,
-        image2: data.c[14].v,
+        RecentlyFeatured: data.c[14].v,
       });
     });
 
+    // console.log("artistDataArr",artistDataArr)
     return artistDataArr;
   } catch (error) {
     console.error("Error fetching Google Sheets data:", error);
