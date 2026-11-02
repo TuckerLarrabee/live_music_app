@@ -2,6 +2,21 @@ import { useEffect, useState } from "react";
 import { countShows } from "../utils.js";
 import "../styles/YearsColumn.css";
 
+function sortShowsDescending(uniqueShowListArr) {
+    return uniqueShowListArr.sort((a, b) => {
+        const aParts = a.date.split('/');
+        const bParts = b.date.split('/');
+
+        const aYear = aParts[2].length === 2 ? 2000 + +aParts[2] : +aParts[2];
+        const bYear = bParts[2].length === 2 ? 2000 + +bParts[2] : +bParts[2];
+
+        const aKey = aYear * 10000 + (+aParts[0]) * 100 + (+aParts[1]);
+        const bKey = bYear * 10000 + (+bParts[0]) * 100 + (+bParts[1]);
+
+        return bKey - aKey; // Descending (newest first)
+    });
+}
+
 const YearsColumn = ({
   specificArtistRecordings,
   setShowsColumnData,
@@ -55,7 +70,9 @@ const YearsColumn = ({
           });
         }
       }
+      sortShowsDescending(uniqueShowListArr)
       setShowsColumnData(uniqueShowListArr);
+      
     } else {
       setHighlightedYear(null);
     }
@@ -113,6 +130,7 @@ const YearsColumn = ({
     if (numberOfShows == 1) {
       setRecordingDetailsColumnData(specificShowsForYearArr);
     }
+    sortShowsDescending(uniqueShowListArr)
     setShowsColumnData(uniqueShowListArr);
   };
 
