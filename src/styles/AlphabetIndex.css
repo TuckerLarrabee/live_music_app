@@ -1,0 +1,64 @@
+/* Only shown in the mobile layout */
+.alphabetIndex {
+  display: none;
+}
+
+.mobile .alphabetIndex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 38px; /* below the "Bands:" header */
+  right: 0;
+  bottom: 0;
+  width: 24px;
+  z-index: 3;
+  touch-action: none; /* dragging the strip shouldn't scroll the page */
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: pointer;
+}
+
+.alphabetIndexLetters {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.alphabetIndexLetters span {
+  font-size: 11px;
+  line-height: 1.4;
+  font-weight: 600;
+  color: rgb(39 155 188);
+}
+
+.alphabetIndexLetters span.isActive {
+  color: rgb(13, 96, 119);
+  transform: scale(1.3);
+}
+
+/* Large letter beside the strip showing which letter the finger is on */
+.alphabetIndexBubble {
+  position: absolute;
+  right: 44px;
+  width: 64px;
+  height: 64px;
+  margin-top: -32px; /* center on the letter */
+  border-radius: 50%;
+  background-color: rgb(39 155 188);
+  color: white;
+  font-size: 34px;
+  font-weight: 600;
+  line-height: 64px;
+  text-align: center;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+  pointer-events: none;
+}
+
+/* Short screens (e.g. landscape): squeeze the letters to fit */
+@media (max-height: 520px) {
+  .alphabetIndexLetters span {
+    font-size: 8px;
+    line-height: 1.1;
+  }
+}

@@ -1,0 +1,33 @@
+.scrollingText {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+/* Hold at the start, slide to reveal the end, hold, slide back */
+@media (prefers-reduced-motion: no-preference) {
+  .scrollingText.isOverflowing {
+    text-overflow: clip;
+  }
+
+  .scrollingText.isOverflowing span {
+    display: inline-block;
+    animation: scrollingTextSlide var(--scroll-duration) ease-in-out infinite;
+  }
+}
+
+@keyframes scrollingTextSlide {
+  0%,
+  20% {
+    transform: translateX(0);
+  }
+  45%,
+  70% {
+    transform: translateX(var(--scroll-distance));
+  }
+  95%,
+  100% {
+    transform: translateX(0);
+  }
+}

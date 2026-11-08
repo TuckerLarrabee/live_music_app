@@ -32,7 +32,8 @@ const callGoogleSheets = async () => {
 
       artistDataArr.push({
         Date: data.c[0].f,
-        Band: data.c[1].v,
+        // Trim so "Mekons" and "Mekons  " in the sheet are treated as the same band
+        Band: String(data.c[1].v).trim(),
         Venue: data.c[2].v,
         City: data.c[3].v,
         State: data.c[4].v,

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import "../styles/ShowsColumn.css";
 import { divStyle, testDivStyle } from "../styles/commonStyles";
 
@@ -6,11 +6,27 @@ const ShowsColumn = ({
   showsColumnData,
   specificArtistRecordings,
   setRecordingDetailsColumnData,
+  showMobileView,
+  linkedSelection,
 }) => {
   const [highlightedShow, setHighlightedShow] = useState(null);
+  // Date from a shared link. Kept until the list no longer contains it, because
+  // the list can be rebuilt more than once while the link is being applied.
+  const linkedDate = useRef(null);
+
+  useEffect(() => {
+    linkedDate.current = linkedSelection?.date ?? null;
+  }, [linkedSelection]);
 
   useEffect(() => {
     setHighlightedShow(null);
+    if (linkedDate.current) {
+      if (showsColumnData.some((show) => show.date === linkedDate.current)) {
+        setHighlightedShow(linkedDate.current);
+        return;
+      }
+      linkedDate.current = null;
+    }
     if (showsColumnData.length == 1 && specificArtistRecordings.length > 1) {
       setTimeout(() => {
         setHighlightedShow(showsColumnData[0].date);
@@ -25,6 +41,7 @@ const ShowsColumn = ({
   const getSpecificShowsRecordings = (event) => {
     let showDate = event.target.id;
     setHighlightedShow(showDate);
+    linkedDate.current = null;
 
     let specificShowsForYearArr = [];
 
@@ -34,6 +51,7 @@ const ShowsColumn = ({
       }
     });
     setRecordingDetailsColumnData(specificShowsForYearArr);
+    showMobileView("details");
   };
 
   return (

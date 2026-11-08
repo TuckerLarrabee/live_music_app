@@ -62,3 +62,21 @@
   gap: 20px;
   align-items: center;
 }
+
+.shareBtn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: none;
+  border: 1px solid rgb(39 155 188);
+  border-radius: 4px;
+  color: rgb(39 155 188);
+  font-size: 0.75rem;
+  padding: 3px 8px;
+  white-space: nowrap;
+}
+
+.shareBtn:hover {
+  background-color: rgb(39 155 188);
+  color: white;
+}

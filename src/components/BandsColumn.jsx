@@ -1,20 +1,23 @@
 import { useEffect, useState, setState, useRef } from "react";
 import "../styles/BandsColumn.css";
 import "../styles/Search.css";
-import { countShows, countUniqueShowsByYear } from "../utils.js";
+import { getYearData } from "../utils.js";
 import SearchInput from "./Search";
+import AlphabetIndex from "./AlphabetIndex";
 import {divStyle, testDivStyle, divPassiveStyle, testDivPassiveStyle} from '../styles/commonStyles'
 
 const BandsColumn = ({
   bandNames,
   sheetData,
   setSpecificArtistRecordingsArray,
+  setShowsColumnData,
   setYearShowRecordingCounts,
   setRecordingDetailsColumnData,
-  setBandsSearched,
   nowPlayingBannerData,
-  setFeaturedDisplay,
-  inputFocused
+  setSearchActive,
+  searchActive,
+  showMobileView,
+  linkedSelection
 }) => {
   const [highlightedBand, setHighlightedBand] = useState(null);
   const [testState, setTestState] = useState(null);
@@ -24,7 +27,6 @@ const BandsColumn = ({
   const currentClick = useRef(null)
   const nowPlayingDiv = useRef(null)
   const [searchedArtists, setSearchedArtists] = useState([]);
-  const [filteredSheetData, setFilteredSheetData] = useState(sheetData)
 
   useEffect(() => {
     setSearchedArtists(bandNames);
@@ -33,18 +35,16 @@ const BandsColumn = ({
    
   
   let getRecent = () => {
-    let recentArtistArr = []
-    sheetData.forEach((artist, index)=> {
-      if (artist.RecentlyFeatured == "x") {
-        recentArtistArr.push(artist.Band)
+    // A Set keeps each band once (in first-marked order), since several rows
+    // for the same band are often marked. Also accepts "X" or stray spaces.
+    let recentArtistSet = new Set()
+    sheetData.forEach((artist)=> {
+      if (String(artist.RecentlyFeatured).trim().toLowerCase() == "x") {
+        recentArtistSet.add(artist.Band)
       }
     })
-    if (recentArtistArr.length > 1) {
 
-    }
-    
-    setRecentlyFeaturedArtistArr(recentArtistArr)
-    setFilteredSheetData(filteredSheetData)
+    setRecentlyFeaturedArtistArr(Array.from(recentArtistSet))
     }
     
     useEffect(() => {
@@ -57,6 +57,27 @@ const BandsColumn = ({
     nowPlayingDiv.current = currentClick.current
     setTestState(nowPlayingDiv.current)
   }, [nowPlayingBannerData]);
+
+  // Highlight and scroll to the band opened from a shared link
+  useEffect(() => {
+    if (!linkedSelection) return;
+    const band = linkedSelection.band;
+    setHighlightedBand(band);
+    currentClick.current = band;
+    if (linkedSelection.source) {
+      nowPlayingDiv.current = band;
+    }
+    const bandRow = [...document.querySelectorAll("#bandUl .bandParentDiv")]
+      .reverse()
+      .find((row) => row.id === band);
+    // Scroll only the band list (scrollIntoView would also scroll the page)
+    if (bandRow) {
+      const bandList = document.getElementById("bandUl");
+      const rowTop = bandRow.getBoundingClientRect().top;
+      const listTop = bandList.getBoundingClientRect().top;
+      bandList.scrollTop += rowTop - listTop - bandList.clientHeight / 2;
+    }
+  }, [linkedSelection]);
   
   const filterBands = (searchedItems) => {
     setSearchedArtists(searchedItems);
@@ -86,69 +107,22 @@ const BandsColumn = ({
   };
 
   const getSpecificArtistYears = (specificArtistArray) => {
-    // console.log("🚀 ~ getSpecificArtistYears ~ specificArtistArray:", specificArtistArray)
-    let currentYear = new Date().getFullYear().toString().slice(-2);
+    let yearDataArr = getYearData(specificArtistArray);
 
-    let showCountArr = [];
-    specificArtistArray.forEach((show) => {
-      showCountArr.push(show.Date);
-    });
-
-    let yearCountArr = [];
-    showCountArr.forEach((show) => {
-      yearCountArr.push(show.slice(-2));
-    });
-    let yearCountSet = new Set(yearCountArr);
-    // console.log("🚀 ~ getSpecificArtistYears ~ yearCountSet:", yearCountSet)
-
-    let yearRecordingCount = countShows(yearCountArr);
-    // console.log("🚀 ~ getSpecificArtistYears ~ yearRecordingCount:", yearRecordingCount)
-    let yearDataArr = [];
-    let uniqueShows = countUniqueShowsByYear(showCountArr);
-    // console.log("🚀 ~ getSpecificArtistYears ~ uniqueShows:", uniqueShows)
-    
-    
-    for (let [key, value] of Object.entries(yearRecordingCount)) {
-      for (let yearKey in uniqueShows) {
-        if (yearKey == key) {
-          if (key <= currentYear) {
-            key = "20" + key;
-          } else if (key > currentYear) {
-            key = "19" + key;
-          }
-          const yearObj = {
-            year: key,
-            recordingCount: value,
-            showCount: uniqueShows[yearKey],
-          };
-          
-          yearDataArr.push(yearObj);
-        }
-      }
-    }
-    let previousCenturyArr = []
-    let currentCenturyArr= []
-    
-    yearDataArr.forEach(item => {
-      if (item.year < 2000) {
-        previousCenturyArr.push(item)
-      }
-      else {
-        currentCenturyArr.push(item)
-      }
-    })
-    yearDataArr = previousCenturyArr.concat(currentCenturyArr)
-    yearDataArr.sort((a, b) => new Date(b.year) - new Date(a.year));
-
-    
-    if (yearCountSet.size === 1 && yearDataArr[0].showCount === 1) {
+    if (yearDataArr.length === 1 && yearDataArr[0].showCount === 1) {
       setYearShowRecordingCounts(yearDataArr);
       setSpecificArtistRecordingsArray(specificArtistArray);
       setRecordingDetailsColumnData(specificArtistArray);
+      showMobileView("details");
     } else {
       setYearShowRecordingCounts(yearDataArr);
       setSpecificArtistRecordingsArray(specificArtistArray);
       setRecordingDetailsColumnData([]);
+      if (yearDataArr.length > 1) {
+        setShowsColumnData([]);
+      }
+      // A single year auto-fills the Shows column, so skip straight to it
+      showMobileView(yearDataArr.length === 1 ? "shows" : "years");
     }
   };
 
@@ -156,16 +130,15 @@ const BandsColumn = ({
     <aside id="bandContainer">
       <div id="headerDiv">
         <SearchInput
-          setFeaturedDisplay={setFeaturedDisplay}
+          setSearchActive={setSearchActive}
           bandNames={bandNames}
-          setBandsSearched={setBandsSearched}
           filterBands={filterBands}
         ></SearchInput>
         <h1 id="bandHeaderText"> Bands:</h1>
       </div>
       <ul id="bandUl">
-        <div id="featured">Recently Featured</div>
-        {inputFocused != true && recentlyFeaturedArtistArr.map((name, index) => (
+        {!searchActive && <div id="featured">Recently Featured</div>}
+        {!searchActive && recentlyFeaturedArtistArr.map((name, index) => (
           <div key={index}>
             <div
               key={index}
@@ -217,6 +190,7 @@ const BandsColumn = ({
           </div>
         ))}
       </ul>
+      {!searchActive && <AlphabetIndex bandNames={searchedArtists}></AlphabetIndex>}
     </aside>
   );
 };

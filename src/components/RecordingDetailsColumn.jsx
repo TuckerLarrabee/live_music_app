@@ -1,17 +1,61 @@
 import { useEffect, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowUpFromBracket } from "@fortawesome/free-solid-svg-icons";
 import "../styles/RecordingDetailsColumn.css";
 import { divStyle, testDivStyle, triangle, triangleClicked } from "../styles/commonStyles";
+import { buildShareUrl } from "../utils.js";
 
 const RecordingDetailsColumn = ({
   recordingDetailsColumnData,
   setNowPlayingBannerData,
   setAudioSrc,
+  linkedSelection,
 }) => {
   const [highlightedRecording, setHighlightedRecording] = useState(null);
+  const [copiedIndex, setCopiedIndex] = useState(null);
 
   useEffect(() => {
     setHighlightedRecording(null);
+    setCopiedIndex(null);
   }, [recordingDetailsColumnData]);
+
+  useEffect(() => {
+    if (linkedSelection?.source) {
+      setHighlightedRecording(linkedSelection.source - 1);
+    }
+  }, [linkedSelection]);
+
+  const shareRecording = async (recording, index) => {
+    const url = buildShareUrl({
+      band: recording.Band,
+      date: recording.Date,
+      source: index + 1,
+    });
+    const title = `${recording.Band} – ${recording.Date} – ${recording.Venue}`;
+
+    // Phones get the native share sheet; desktop copies the link
+    const isTouchDevice = window.matchMedia("(pointer: coarse)").matches;
+    if (navigator.share && isTouchDevice) {
+      try {
+        // The link goes inside `text` rather than in `url`: iOS sends only the url to
+        // Messages when both are given, dropping the description. Messages still
+        // turns the address in the text into a link preview.
+        await navigator.share({ text: `${title}\n${url}` });
+      } catch {
+        // Share sheet dismissed
+      }
+      return;
+    }
+
+    try {
+      await navigator.clipboard.writeText(url);
+      setCopiedIndex(index);
+      setTimeout(() => setCopiedIndex(null), 2000);
+    } catch {
+      // Clipboard needs https (or localhost); fall back to a manual copy
+      window.prompt("Copy this link:", url);
+    }
+  };
 
   const setNowPlaying = (event) => {
     let clickedRecording = recordingDetailsColumnData[event.target.id];
@@ -54,6 +98,14 @@ const RecordingDetailsColumn = ({
                             id={index}
                             className="triangle"
                           ></button>
+                          <button
+                            className="shareBtn"
+                            onClick={() => shareRecording(name, index)}
+                            aria-label="Share this recording"
+                          >
+                            <FontAwesomeIcon icon={faArrowUpFromBracket} />
+                            <span>{copiedIndex === index ? "Copied!" : "Share"}</span>
+                          </button>
                         </div>
                       </div>
                       <div id="setlistDiv">

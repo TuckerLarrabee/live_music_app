@@ -1,0 +1,196 @@
+/* Mobile layout: one column at a time, drilled down via data-view.
+   Everything is scoped under .mobile (set by PageContent from useIsMobile),
+   so the desktop layout is untouched. */
+
+#appShell.mobile {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+/* Now Playing becomes a compact bar pinned to the bottom */
+.mobile #nowPlayingContainer {
+  order: 2;
+  flex-shrink: 0;
+  position: static;
+  padding: 8px 12px calc(6px + env(safe-area-inset-bottom));
+  box-shadow: 0 -6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.mobile .audioInfo {
+  width: 100%;
+  padding-left: 0;
+  margin-bottom: 4px;
+}
+
+.mobile .artistName {
+  font-size: 17px;
+}
+
+/* Let the name/venue column shrink so long text can scroll instead of
+   pushing the date off the edge */
+.mobile #nameVenueDiv {
+  flex: 1;
+  min-width: 0;
+}
+
+.mobile .concertDetails {
+  flex-shrink: 0;
+}
+
+.mobile #nameVenueDiv p,
+.mobile .concertDetails p {
+  font-size: 13px;
+}
+
+.mobile .concertDetails {
+  padding-top: 2px;
+}
+
+.mobile audio,
+.mobile video {
+  width: 100%;
+}
+
+/* Column area fills the space between the top nav and the player */
+.mobile #content {
+  order: 1;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.mobile #dataContainer {
+  flex: 1;
+  min-height: 0;
+  height: auto;
+}
+
+.mobile #dataContainer > aside {
+  display: none;
+  flex-direction: column;
+  min-height: 0;
+  padding: 0;
+}
+
+.mobile[data-view="bands"] #bandContainer,
+.mobile[data-view="years"] #yearContainer,
+.mobile[data-view="shows"] #showContainer,
+.mobile[data-view="details"] #recordingDetailsContainer {
+  display: flex;
+}
+
+/* Lists scroll inside their column instead of using the desktop vh heights */
+.mobile #dataContainer ul,
+.mobile #recordingDetailsContainer > div {
+  flex: 1;
+  height: auto;
+  min-height: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.mobile aside h1 {
+  font-size: 18px;
+  padding: 8px;
+}
+
+/* Slide columns in when drilling down (from the right) or going back (from the left) */
+@media (prefers-reduced-motion: no-preference) {
+  .mobile #dataContainer > aside {
+    animation: mobileSlideFromRight 0.22s ease-out;
+  }
+
+  .mobile[data-direction="back"] #dataContainer > aside {
+    animation-name: mobileSlideFromLeft;
+  }
+}
+
+@keyframes mobileSlideFromRight {
+  from {
+    transform: translateX(30%);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+@keyframes mobileSlideFromLeft {
+  from {
+    transform: translateX(-30%);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+/* Room on the right for the A–Z index strip */
+.mobile #bandContainer {
+  position: relative;
+}
+
+.mobile #bandUl {
+  padding-right: 24px;
+}
+
+/* Bigger touch targets */
+.mobile .bandParentDiv {
+  min-height: 52px;
+}
+
+.mobile .bandLi {
+  flex: 1;
+}
+
+.mobile #specificYearListItem a {
+  height: 56px;
+}
+
+.mobile .showParentDiv {
+  height: auto;
+  min-height: 70px;
+  padding: 6px 0;
+}
+
+.mobile .numberRecordingDiv {
+  white-space: nowrap;
+  padding-left: 8px;
+}
+
+.mobile .detailsParentDiv {
+  padding: 10px 12px 10px 7px;
+}
+
+.mobile #recordingDetailsDiv {
+  font-size: 0.9rem;
+}
+
+/* Search lives inside the blue "Bands:" header bar instead of the player */
+.mobile #headerDiv .search {
+  --size: 38px;
+  top: 0;
+  right: 0;
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.mobile #headerDiv .search__submit {
+  color: white;
+}
+
+.mobile #bandContainer h1 {
+  height: 38px;
+  line-height: 22px;
+}
+
+/* 16px input font stops iOS Safari from zooming in on focus */
+.mobile .search__input {
+  font-size: 16px;
+}

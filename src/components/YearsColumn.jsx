@@ -1,27 +1,14 @@
 import { useEffect, useState } from "react";
-import { countShows } from "../utils.js";
+import { buildShowList } from "../utils.js";
 import "../styles/YearsColumn.css";
-
-function sortShowsDescending(uniqueShowListArr) {
-    return uniqueShowListArr.sort((a, b) => {
-        const aParts = a.date.split('/');
-        const bParts = b.date.split('/');
-
-        const aYear = aParts[2].length === 2 ? 2000 + +aParts[2] : +aParts[2];
-        const bYear = bParts[2].length === 2 ? 2000 + +bParts[2] : +bParts[2];
-
-        const aKey = aYear * 10000 + (+aParts[0]) * 100 + (+aParts[1]);
-        const bKey = bYear * 10000 + (+bParts[0]) * 100 + (+bParts[1]);
-
-        return bKey - aKey; // Descending (newest first)
-    });
-}
 
 const YearsColumn = ({
   specificArtistRecordings,
   setShowsColumnData,
   yearShowRecordingCounts,
   setRecordingDetailsColumnData,
+  showMobileView,
+  linkedSelection,
 }) => {
   const [highlightedYear, setHighlightedYear] = useState(null);
 
@@ -36,102 +23,37 @@ const YearsColumn = ({
         }
       }, 280);
 
-      let specificShowDateArr = [];
-      specificArtistRecordings.forEach((showdate) => {
-        specificShowDateArr.push(showdate.Date);
-      });
-      let specificShowCount = countShows(specificShowDateArr);
-      const uniqueShowListArr = [];
-      const dateSet = new Set();
-
-      for (let i = 0; i < specificArtistRecordings.length; i++) {
-        dateSet.add(specificArtistRecordings[i].Date);
-        if (i === specificArtistRecordings.length - 1) {
-          const uniqueShowArr = Array.from(dateSet);
-          uniqueShowArr.forEach((newShowObj) => {
-            uniqueShowListArr.push({
-              date: newShowObj,
-              venue: specificArtistRecordings[i].Venue,
-              city: specificArtistRecordings[i].City,
-              state: specificArtistRecordings[i].State,
-            });
-          });
-        }
-        if (uniqueShowListArr.length) {
-          uniqueShowListArr.forEach((show) => {
-            specificArtistRecordings.forEach((showData) => {
-              if (show.date === showData.Date) {
-                show.venue = showData.Venue;
-                show.city = showData.City;
-                show.state = showData.State;
-                show.recordingCount = specificShowCount[show.date];
-              }
-            });
-          });
-        }
-      }
-      sortShowsDescending(uniqueShowListArr)
-      setShowsColumnData(uniqueShowListArr);
-      
+      setShowsColumnData(buildShowList(specificArtistRecordings));
     } else {
       setHighlightedYear(null);
     }
   }, [specificArtistRecordings]);
 
-  const getSpecificShows = (event) => {
-    let yearLiIndex = event.target.id;
-    setHighlightedYear(yearLiIndex);
+  // Runs after the reset above, so a shared link's year stays highlighted
+  useEffect(() => {
+    if (linkedSelection?.year) {
+      setHighlightedYear(linkedSelection.year);
+    }
+  }, [linkedSelection]);
+
+  const getSpecificShows = (year) => {
+    setHighlightedYear(year);
 
     let specificShowsForYearArr = [];
-    let clickedYear = event.target.textContent.slice(-2);
+    let clickedYear = year.slice(-2);
     specificArtistRecordings.forEach((yearData) => {
       if (clickedYear == yearData.Date.slice(-2)) {
         specificShowsForYearArr.push(yearData);
       }
     });
-    let specificShowDateArr = [];
 
-    specificShowsForYearArr.forEach((date) => {
-      specificShowDateArr.push(date.Date);
-    });
-    let specificShowCount = countShows(specificShowDateArr);
-
-    const uniqueShowListArr = [];
-    const dateSet = new Set();
-    for (let i = 0; i < specificShowsForYearArr.length; i++) {
-      dateSet.add(specificShowsForYearArr[i].Date);
-      if (i === specificShowsForYearArr.length - 1) {
-        const uniqueShowArr = Array.from(dateSet);
-        uniqueShowArr.forEach((newShowObj) => {
-          uniqueShowListArr.push({
-            date: newShowObj,
-            venue: specificShowsForYearArr[i].Venue,
-            city: specificShowsForYearArr[i].City,
-            state: specificShowsForYearArr[i].State,
-          });
-        });
-      }
-
-      if (uniqueShowListArr.length) {
-        uniqueShowListArr.forEach((show) => {
-          specificShowsForYearArr.forEach((showData) => {
-            if (show.date === showData.Date) {
-              show.venue = showData.Venue;
-              show.city = showData.City;
-              show.state = showData.State;
-              show.recordingCount = specificShowCount[show.date];
-            }
-          });
-        });
-      }
-    }
-
-    const numberOfShows = Object.keys(specificShowCount).length;
+    const uniqueShowListArr = buildShowList(specificShowsForYearArr);
+    const numberOfShows = uniqueShowListArr.length;
     if (numberOfShows == 1) {
       setRecordingDetailsColumnData(specificShowsForYearArr);
     }
-    sortShowsDescending(uniqueShowListArr)
     setShowsColumnData(uniqueShowListArr);
+    showMobileView(numberOfShows == 1 ? "details" : "shows");
   };
 
   const divStyle = {
@@ -157,7 +79,7 @@ const YearsColumn = ({
                   style={highlightedYear == name.year ? divStyle : testDivStyle}
                   className="yearSiblingDiv"
                 ></div>
-                <li key={index} onClick={getSpecificShows}>
+                <li key={index} onClick={() => getSpecificShows(name.year)}>
                   <div id="specificYearListItem">
                     <a id={name.year}>{name.year}</a>
                     <div id="specificYearData">

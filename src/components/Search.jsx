@@ -4,21 +4,18 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import fuzzysearch from "fuzzysearch";
 import "../styles/Search.css";
 
-const SearchInput = ({ filterBands, bandNames, setFeaturedDisplay }) => {
+const SearchInput = ({ filterBands, bandNames, setSearchActive }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const searchedItems = bandNames.filter((band) =>
   fuzzysearch(searchQuery, band.toLowerCase())
   );
   const inputRef = useRef(null)
-  const handleFocus = () => {
-    setFeaturedDisplay(true);
-  };
-
-  const handleBlur = () => {
-    setFeaturedDisplay(false);
-  };
 
   useEffect(() => {
+    // Driven by the query rather than focus: toggling on blur re-rendered the
+    // Recently Featured list mid-click, shifting the results out from under the pointer
+    setSearchActive(searchQuery.length > 0);
+
     if (!searchQuery.length) {
       filterBands(bandNames);
     }
@@ -34,14 +31,14 @@ const SearchInput = ({ filterBands, bandNames, setFeaturedDisplay }) => {
 
   const handleDelete = () => {
     setSearchQuery("");
+    inputRef.current.focus();
   };
 
   return (
     <div className="content">
-      <div className="search">
+      {/* Stays expanded while there's a query, so the filter is never hidden */}
+      <div className={searchQuery ? "search search--active" : "search"}>
         <input
-          onFocus={handleFocus}
-          onBlur={handleBlur}
           onChange={handleInputChange}
           type="text"
           ref={inputRef}

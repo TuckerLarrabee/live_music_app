@@ -56,7 +56,8 @@
   height: calc(var(--size) - 10px);
   color: var(--clr-body);
 }
-.search:focus-within {
+.search:focus-within,
+.search--active {
   width: 100%;
   background: var(--clr-primary);
   border-radius: 0px;
@@ -68,13 +69,15 @@
   border-radius: 0px;
 } */
 
-.search:focus-within .search__input {
+.search:focus-within .search__input,
+.search--active .search__input {
   opacity: 1;
   z-index: initial;
   cursor: initial;
   width: calc(100% - var(--size));
 }
-.search:focus-within .search__submit {
+.search:focus-within .search__submit,
+.search--active .search__submit {
   background: var(--clr-primary);
   color: white;
   box-shadow: 0 0 1px rgba(0, 0, 0, 0.15);
@@ -89,7 +92,8 @@
     outline: rgb(39 155 188);
 }
 
-.search:focus-within .deleteBtn {
+.search:focus-within .deleteBtn,
+.search--active .deleteBtn {
     fill: rgb(39 155 188);
     display: block;
     background-color: var(--clr-primary);
@@ -108,7 +112,8 @@
     cursor: pointer;
 }
 
-.search:focus-within .delete {
+.search:focus-within .delete,
+.search--active .delete {
     /* fill: rgb(39 155 188); */
     display: block;
     background-color: var(--clr-primary);

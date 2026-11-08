@@ -11,7 +11,7 @@ The Live Music Application is a web-based platform that allows users to stream l
 
 ## Live Link to Deployed Site
 
-https://tuckerlarrabee.github.io/live_music_app/
+https://memphisegypt.net
 
 
 ## Installation
